@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "442828701800",
+    "project_id": "chat-app-c8403",
+    "storage_bucket": "chat-app-c8403.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442828701800:android:446f89d2eeb212ae827bdd",
+        "android_client_info": {
+          "package_name": "com.example.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "442828701800-6sijb6bf2fbmfccdq81blpirp7unmk5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEv-XTRBkXtXPl4JU002qcWTOKcIKotKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "442828701800-6sijb6bf2fbmfccdq81blpirp7unmk5g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "442828701800-abdrqs2l0j0ffbb21gt2uj9o8fo4ffg3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.savia"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
