@@ -6,6 +6,7 @@ import 'package:chatapp/src/utils/dialog_util.dart';
 import 'package:chatapp/src/utils/regex_util.dart';
 import 'package:chatapp/src/widgets/background_image.dart';
 import 'package:chatapp/src/widgets/build_loading_circle.dart';
+import 'package:chatapp/src/widgets/custom_arrow_back.dart';
 import 'package:chatapp/src/widgets/custom_button.dart';
 import 'package:chatapp/src/widgets/slogan.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,9 @@ class _PhoneSignInPageState extends State<PhoneSignInPage> {
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     child: Column(
                       children: [
-                        SizedBox(height: 120.h),
+                        SizedBox(height: 50.h),
+                        const CustomArrowBackIcon(),
+                        SizedBox(height: 50.h),
                         SloganWidget(
                           slogan:
                               AppLocalizations.of(context)!.sloganPhoneNumber,
@@ -96,13 +99,26 @@ class _PhoneSignInPageState extends State<PhoneSignInPage> {
     );
   }
 
+  void _naviToVerityOtpPage({
+    required BuildContext context,
+    required String verificationId,
+    required String phoneNumber,
+  }) {
+    context.go(
+        "/sign_in/phone_number/verify_OTP?verificationId=$verificationId?phoneNumber=$phoneNumber");
+  }
+
   void _sentOTP(BuildContext context) {
     context.read<PhoneSignInBloc>().add(
           PhoneSignInSendOTP(
             phoneNumber: _phoneNumberController.text.substring(1),
             pushToOtp: (String verificationId) {
-              context.go(
-                  "/sign_in/verify_OTP?verificationId=$verificationId?phoneNumber=${_phoneNumberController.text.trim()}");
+              final phoneNumber = _phoneNumberController.text.trim();
+              _naviToVerityOtpPage(
+                context: context,
+                verificationId: verificationId,
+                phoneNumber: phoneNumber,
+              );
             },
           ),
         );
@@ -115,5 +131,11 @@ class _PhoneSignInPageState extends State<PhoneSignInPage> {
       title: AppLocalizations.of(context)!.signInFailed,
       message: state.message,
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _phoneNumberController.dispose();
   }
 }

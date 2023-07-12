@@ -21,6 +21,7 @@ class FormPhoneNumber extends StatelessWidget {
       child: CustomTextFormField(
         prefixIcon: const Icon(Icons.phone),
         controller: phoneNumberController,
+        autoFocus: true,
         hintText: TextConstant.phoneNumberExample,
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.number,

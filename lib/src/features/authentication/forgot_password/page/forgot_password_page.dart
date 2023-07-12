@@ -2,7 +2,6 @@ import 'package:chatapp/src/data/repositories/forgot_password_repo.dart';
 import 'package:chatapp/src/features/authentication/forgot_password/bloc/forgot_password_bloc.dart';
 import 'package:chatapp/src/features/authentication/forgot_password/widgets/form_forgot_password.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
-import 'package:chatapp/src/theme/color_theme.dart';
 import 'package:chatapp/src/utils/dialog_util.dart';
 import 'package:chatapp/src/widgets/background_image.dart';
 import 'package:chatapp/src/widgets/build_loading_circle.dart';
@@ -12,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../../widgets/custom_arrow_back.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   ForgotPasswordPage({super.key});
@@ -51,19 +52,7 @@ class ForgotPasswordPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(height: 50.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          IconButton(
-                            onPressed: () => context.pop(true),
-                            icon: Icon(
-                              Icons.arrow_back_ios,
-                              color: ColorTheme.mineShaft,
-                              size: 40.sp,
-                            ),
-                          ),
-                        ],
-                      ),
+                      const CustomArrowBackIcon(),
                       SizedBox(height: 50.h),
                       SloganWidget(
                         slogan:

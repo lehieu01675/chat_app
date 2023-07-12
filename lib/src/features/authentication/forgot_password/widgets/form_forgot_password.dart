@@ -21,7 +21,8 @@ class FormForgotPassword extends StatelessWidget {
       child: CustomTextFormField.email(
         controller: emailController,
         hintText: TextConstant.emailExample,
-        textInputAction: TextInputAction.next,
+        autoFocus: true,
+        textInputAction: TextInputAction.done,
         keyboardType: TextInputType.emailAddress,
         autoValidateMode: AutovalidateMode.onUserInteraction,
         validator: (email) => _emailValidation(context, email),

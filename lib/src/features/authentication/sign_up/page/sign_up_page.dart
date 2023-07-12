@@ -1,11 +1,11 @@
 import 'package:chatapp/src/data/repositories/sign_up_repo.dart';
 import 'package:chatapp/src/data/repositories/user_repo.dart';
-import 'package:chatapp/src/features/authentication/build_widgets/row_or_sign_in_with.dart';
-import 'package:chatapp/src/features/authentication/sign_up/build_widgets/form_sign_up.dart';
+import 'package:chatapp/src/features/authentication/sign_up/widgets/form_sign_up.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
 import 'package:chatapp/src/widgets/background_image.dart';
 import 'package:chatapp/src/widgets/custom_button.dart';
 import 'package:chatapp/src/widgets/navigation_auth_text.dart';
+import 'package:chatapp/src/widgets/or_sign_in_with.dart';
 import 'package:chatapp/src/widgets/sign_in_with_gg_sms.dart';
 import 'package:chatapp/src/widgets/slogan.dart';
 import 'package:chatapp/src/features/authentication/sign_up/bloc/sign_up_bloc.dart';
@@ -17,12 +17,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-class SignUpPage extends StatelessWidget {
-  SignUpPage({Key? key}) : super(key: key);
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   static final GlobalKey<FormState> _keyForm = GlobalKey<FormState>();
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
   final _emailController = TextEditingController();
+
   final _passwordController = TextEditingController();
+
   final _confirmPasswordController = TextEditingController();
 
   @override
@@ -84,7 +92,7 @@ class SignUpPage extends StatelessWidget {
           emailController: _emailController,
           passwordController: _passwordController,
           confirmPasswordController: _confirmPasswordController,
-          keyForm: _keyForm,
+          keyForm: SignUpPage._keyForm,
         ),
         SizedBox(height: 10.h),
         CustomButton.curiousBlue(
@@ -100,7 +108,7 @@ class SignUpPage extends StatelessWidget {
   }
 
   void _signUp(BuildContext context) {
-    if (_keyForm.currentState?.validate() ?? false) {
+    if (SignUpPage._keyForm.currentState?.validate() ?? false) {
       context.read<SignUpBloc>().add(SignUpWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim()));
@@ -114,5 +122,13 @@ class SignUpPage extends StatelessWidget {
       title: AppLocalizations.of(context)!.signUpFailed,
       message: state.message,
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
   }
 }

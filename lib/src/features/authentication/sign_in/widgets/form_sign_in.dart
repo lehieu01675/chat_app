@@ -25,6 +25,7 @@ class FormSignIn extends StatelessWidget {
         children: [
           CustomTextFormField.email(
             controller: emailController,
+            autoFocus: true,
             hintText: TextConstant.emailExample,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,

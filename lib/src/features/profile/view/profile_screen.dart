@@ -44,13 +44,13 @@ class _ProfilePageState extends State<ProfilePage> {
           listener: (context, state) {
         if (state is SignedOut) {
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) =>  SignInPage()),
+            MaterialPageRoute(builder: (context) =>  const SignInPage()),
             (route) => false,
           );
         }
         if (state is SignOutError) {
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) =>  SignInPage()),
+            MaterialPageRoute(builder: (context) =>  const SignInPage()),
             (route) => false,
           );
         }

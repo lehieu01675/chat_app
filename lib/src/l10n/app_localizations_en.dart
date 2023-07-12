@@ -69,4 +69,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get phoneNumberValid => 'Phone number is valid';
+
+  @override
+  String get verifyFailed => 'Verify failed';
+
+  @override
+  String get otpIncorrect => 'OTP code is incorrect';
+
+  @override
+  String get verifyOTP => 'Verify OTP';
+
+  @override
+  String get sloganVerifyOTP => 'We have sent the otp code. Check the sms and enter the code correctly.';
 }
