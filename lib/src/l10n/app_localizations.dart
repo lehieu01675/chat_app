@@ -224,6 +224,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Phone number is valid'**
   String get phoneNumberValid;
+
+  /// No description provided for @verifyFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify failed'**
+  String get verifyFailed;
+
+  /// No description provided for @otpIncorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP code is incorrect'**
+  String get otpIncorrect;
+
+  /// No description provided for @verifyOTP.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify OTP'**
+  String get verifyOTP;
+
+  /// No description provided for @sloganVerifyOTP.
+  ///
+  /// In en, this message translates to:
+  /// **'We have sent the otp code. Check the sms and enter the code correctly.'**
+  String get sloganVerifyOTP;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

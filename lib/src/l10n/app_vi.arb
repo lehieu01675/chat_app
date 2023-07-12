@@ -20,5 +20,9 @@
    "emailNotRegistered": "Email này chưa được đăng kí tài khoản",
    "signInFailed": "Đăng nhập thất bại",
    "signUpFailed": "Đăng kí thất bại",
-   "phoneNumberValid": "Số điện thoại không hợp lệ"
+   "phoneNumberValid": "Số điện thoại không hợp lệ",
+   "verifyFailed": "Xác minh thất bại",
+   "otpIncorrect": "Mã OTP không chính xác",
+   "verifyOTP": "Xác minh mã OTP",
+   "sloganVerifyOTP": "Chúng tôi đã gửi mã otp. Kiểm tra sms và điền chính xác mã."
 }

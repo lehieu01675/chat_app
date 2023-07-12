@@ -69,4 +69,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get phoneNumberValid => 'Số điện thoại không hợp lệ';
+
+  @override
+  String get verifyFailed => 'Xác minh thất bại';
+
+  @override
+  String get otpIncorrect => 'Mã OTP không chính xác';
+
+  @override
+  String get verifyOTP => 'Xác minh mã OTP';
+
+  @override
+  String get sloganVerifyOTP => 'Chúng tôi đã gửi mã otp. Kiểm tra sms và điền chính xác mã.';
 }

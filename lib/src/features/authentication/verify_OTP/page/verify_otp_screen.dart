@@ -1,16 +1,19 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chatapp/src/data/repositories/phone_repo.dart';
 import 'package:chatapp/src/data/repositories/user_repo.dart';
-import 'package:chatapp/src/features/authentication/phong_number/bloc/phone_sign_in_bloc.dart';
 import 'package:chatapp/src/features/authentication/verify_OTP/bloc/verify_otp_bloc.dart';
+import 'package:chatapp/src/l10n/app_localizations.dart';
+import 'package:chatapp/src/theme/color_theme.dart';
 import 'package:chatapp/src/utils/dialog_util.dart';
-import 'package:chatapp/src/helper/size_helper.dart';
-import 'package:chatapp/src/helper/text_style_helper.dart';
-import 'package:chatapp/src/lay_out/responsive_layout.dart';
+import 'package:chatapp/src/widgets/background_image.dart';
 import 'package:chatapp/src/widgets/custom_button.dart';
+import 'package:chatapp/src/widgets/slogan.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../widgets/custom_arrow_back.dart';
 
 class VerifyOTPPage extends StatefulWidget {
   final String verificationId;
@@ -30,52 +33,38 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
   final _pinController = TextEditingController();
   final _pinPutFocusNode = FocusNode();
   String smsCode = '';
-  String _notificationOtp = '';
-  final String _title = 'OTP Verification';
 
-  @override
-  void initState() {
-    super.initState();
-    _notificationOtp =
-        'Verification code has been sent to phone number: ${widget.phoneNumber}. This code will take effect within 90 seconds.';
-  }
-
-  // TODO: tach bloc => state
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider(
-        create: (context) => VerifyOtpBloc(
-          phoneRepository: PhoneRepository(),
-          userRepository: UserRepository(),
-        ),
-        child: BlocListener<PhoneSignInBloc, PhoneSignInState>(
-            listener: (context, state) {
-          if (state is VerifyOtpError) {}
-        }, child: BlocBuilder<PhoneSignInBloc, PhoneSignInState>(
-                builder: (context, state) {
-          if (state is PhoneSignInLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else {
-            return SingleChildScrollView(
+    return BlocProvider(
+      create: (context) => VerifyOtpBloc(
+        phoneRepository: PhoneRepository(),
+        userRepository: UserRepository(),
+      ),
+      child: BlocConsumer<VerifyOtpBloc, VerifyOtpState>(
+        listener: (context, state) {
+          if (state is VerifyOTPSuccess) {
+            context.go("/dashboard");
+          }
+        },
+        builder: (context, state) {
+          return Scaffold(
+            body: SingleChildScrollView(
               child: Stack(children: [
+                const BackgroundImageWidget(),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      context.sizedBox(height: SizeHelper.topWithSlogan * 2),
-                      Center(
-                          child:
-                              Text(_title, style: TextStyleHelper.bigSlogan)),
-                      const SizedBox(height: 5),
-                      Center(
-                          child: Text(_notificationOtp,
-                              textAlign: TextAlign.center,
-                              style: TextStyleHelper.dontHavaAccount)),
-                      const SizedBox(height: 20),
-                      Center(
-                          child: Pinput(
+                      SizedBox(height: 50.h),
+                      const CustomArrowBackIcon(),
+                      SizedBox(height: 50.h),
+                      SloganWidget(
+                        slogan: AppLocalizations.of(context)!.sloganPhoneNumber,
+                        title: AppLocalizations.of(context)!.verifyOTP,
+                      ),
+                      SizedBox(height: 20.h),
+                      Pinput(
                         onChanged: ((value) {
                           smsCode = value;
                         }),
@@ -117,25 +106,19 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
                         focusNode: _pinPutFocusNode,
                         controller: _pinController,
                         pinAnimationType: PinAnimationType.fade,
-                      )),
-                      context.sizedBox(
-                          height: SizeHelper.textFormFieldWithButton),
+                      ),
+                      SizedBox(height: 10.h),
                       CustomButton.curiousBlue(
-                          label: 'Xác nhận',
-                          onPress: () {
-                            if (smsCode.length == 6) {
-                              _verifyOtp(
-                                  context: context,
-                                  verificationId: widget.verificationId);
-                            } else {}
-                          }),
+                        label: AppLocalizations.of(context)!.send,
+                        onPress: () => _send(context),
+                      ),
                     ],
                   ),
                 ),
               ]),
-            );
-          }
-        })),
+            ),
+          );
+        },
       ),
     );
   }
@@ -149,9 +132,15 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
     ),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(19),
-      border: Border.all(color: const Color.fromRGBO(23, 171, 144, 0.4)),
+      border: Border.all(color: ColorTheme.curiousBlue),
     ),
   );
+
+  void _send(BuildContext context) {
+    if (smsCode.length == 6) {
+      _verifyOtp(context: context, verificationId: widget.verificationId);
+    }
+  }
 
   void _verifyOtp({
     required BuildContext context,
@@ -164,13 +153,17 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
   }
 
   void _showVerityOTPValidation(BuildContext context) {
-    DialogUtil.showDiaLog(
-        title: 'Verification failed',
-        context: context,
-        onPressedOK: () {},
-        message: 'The verification code is incorrect',
-        colorOkButton: Colors.red,
-        dialogType: DialogType.ERROR,
-        iconData: Icons.cancel);
+    DialogUtil.showException(
+      title: AppLocalizations.of(context)!.verifyFailed,
+      context: context,
+      onPressedOK: () {},
+      message: AppLocalizations.of(context)!.otpIncorrect,
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _pinController.dispose();
   }
 }
