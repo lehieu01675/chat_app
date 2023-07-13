@@ -10,13 +10,15 @@ class TextConstant {
   static const String profile = "Profile";
   static const String userNotFound = "user-not-found";
   static const String wrongPassword = "wrong-password";
-  static const String authGate = "/";
-  static const String signInPath = "/sign_in";
-  static const String signUpPath = "/sign_up";
-  static const String dashboardPath = "/dashboard";
+  static const String root = "/";
+  static const String signInPath = "sign_in";
+  static const String signUpPath = "sign_up";
+  static const String dashboardPath = "dashboard";
   static const String forgotPasswordPath = "forgot_password";
   static const String phoneNumberPath = "phone_number";
   static const String verifyOtpPath = "verify_OTP";
   static const String verificationID = "verificationId";
   static const String phoneNumber = "phoneNumber";
+  static const String languageCode = "languageCode";
+  static const String isFirstTime = "isFirstTime";
 }

@@ -46,14 +46,9 @@ class AppRouter {
               ],
             ),
             GoRoute(
-                path: TextConstant.signUpPath,
-                builder: (context, state) => const SignUpPage(),
-                routes: [
-                  GoRoute(
-                    path: TextConstant.phoneNumberPath,
-                    builder: (context, state) => const PhoneSignInPage(),
-                  )
-                ]),
+              path: TextConstant.signUpPath,
+              builder: (context, state) => const SignUpPage(),
+            ),
             GoRoute(
               path: TextConstant.dashboardPath,
               builder: (context, state) => const DashboardPage(),

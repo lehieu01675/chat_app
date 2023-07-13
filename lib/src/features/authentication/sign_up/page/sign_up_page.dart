@@ -1,6 +1,6 @@
 import 'package:chatapp/src/features/authentication/sign_up/widgets/form_sign_up.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
-import 'package:chatapp/src/router/app_pages.dart';
+import 'package:chatapp/src/router/route_paths.dart';
 import 'package:chatapp/src/widgets/background_image.dart';
 import 'package:chatapp/src/widgets/custom_button.dart';
 import 'package:chatapp/src/widgets/navigation_auth_text.dart';
