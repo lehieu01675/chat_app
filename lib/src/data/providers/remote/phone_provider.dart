@@ -1,8 +1,24 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 
-class PhoneProvider {
+abstract class PhoneProvider {
+  Future<void> sendOtp({
+    required String phoneNumber,
+    required void Function(String verificationId) pushToOtp,
+  });
+
+  Future<void> verifyOTP({
+    required String verificationId,
+    required String smsCode,
+    required void Function()? onError,
+  });
+}
+
+@Injectable(as: PhoneProvider)
+class PhoneProviderImpl implements PhoneProvider {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  @override
   Future<void> sendOtp({
     required String phoneNumber,
     required void Function(String verificationId) pushToOtp,
@@ -28,6 +44,7 @@ class PhoneProvider {
     }
   }
 
+  @override
   Future<void> verifyOTP({
     required String verificationId,
     required String smsCode,

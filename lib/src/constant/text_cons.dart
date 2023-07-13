@@ -5,4 +5,7 @@ class TextConstant {
   static const String passwordExample = "Hi123456";
   static const String vi = "vi";
   static const String en = "en";
+  static const String contact = "Contact";
+  static const String chat = "Chat";
+  static const String profile = "Profile";
 }

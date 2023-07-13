@@ -1,11 +1,17 @@
 import 'dart:async';
-
 import 'package:chatapp/src/data/models/user_model.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 
-class MainScreenRepository {
+abstract class ListChatUserRepository {
+  Stream<List<UserModel>> get streamChatUsers;
+
+  void close();
+}
+
+@Injectable(as: ListChatUserRepository)
+class ListChatUserRepositoryImpl implements ListChatUserRepository {
   final FirebaseFirestore _store = FirebaseFirestore.instance;
   final _authUser = FirebaseAuth.instance.currentUser;
 
@@ -14,9 +20,7 @@ class MainScreenRepository {
   final StreamController<List<UserModel>> _streamChatUsers =
       StreamController.broadcast();
 
-  Stream<List<UserModel>> get streamChatUsers => _streamChatUsers.stream;
-
-  MainScreenRepository() {
+  ListChatUserRepositoryImpl() {
     _listenChatUsers = _store
         .collection('users')
         .doc(_authUser?.uid)
@@ -41,46 +45,12 @@ class MainScreenRepository {
     return listChatUser;
   }
 
+  @override
   void close() {
     _listenChatUsers?.cancel();
     _streamChatUsers.close();
   }
 
-  // add id of another user to chat_users collection
-  Future<bool> addChatUser(String checkID) async {
-    final data = await _store
-        .collection('users')
-        .where('check_id', isEqualTo: checkID)
-        .get();
-    if (data.docs.isNotEmpty && data.docs.first.id != _authUser!.uid) {
-      _setSecondCollection(
-          user: _authUser!, data: data, textCollection: 'chat_users');
-      _setSecondCollection(user: _authUser!, data: data, textCollection: 'contacts');
-   
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  void _setSecondCollection(
-      {required User user,
-      required QuerySnapshot<Map<String, dynamic>> data,
-      required String textCollection}) {
-    _store
-        .collection('users')
-        .doc(user.uid)
-        .collection(textCollection)
-        .doc(data.docs.first.id)
-        .set({});
-  }
-
-  Future<void> deleteChatUser({required String id}) async {
-    await _store
-        .collection('users')
-        .doc(_authUser?.uid)
-        .collection('chat_users')
-        .doc(id)
-        .delete();
-  }
+  @override
+  Stream<List<UserModel>> get streamChatUsers => _streamChatUsers.stream;
 }

@@ -2,19 +2,17 @@ import 'package:chatapp/src/data/repositories/sign_up_repo.dart';
 import 'package:chatapp/src/data/repositories/user_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 part 'sign_up_event.dart';
 
 part 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
-  SignUpRepository signUpRepository;
-  UserRepository userRepository;
+  SignUpRepository signUpRepository = GetIt.I.get<SignUpRepository>();
+  UserRepository userRepository = GetIt.I.get<UserRepository>();
 
-  SignUpBloc({
-    required this.signUpRepository,
-    required this.userRepository,
-  }) : super(SignUpFailed()) {
+  SignUpBloc() : super(SignUpFailed()) {
     on<SignUpWithEmailAndPassword>(_signUpWithEmailAndPassWord);
     on<SignUpWithGoogle>(_signInWithGoogle);
   }

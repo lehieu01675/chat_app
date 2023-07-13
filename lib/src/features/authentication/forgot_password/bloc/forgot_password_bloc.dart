@@ -1,6 +1,7 @@
 import 'package:chatapp/src/data/repositories/forgot_password_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 part 'forgot_password_event.dart';
 
@@ -8,10 +9,10 @@ part 'forgot_password_state.dart';
 
 class ForgotPasswordBloc
     extends Bloc<ForgotPasswordEvent, ForgotPasswordState> {
-  ForgotPasswordRepository forgotPasswordRepository;
+  ForgotPasswordRepository forgotPasswordRepository =
+      GetIt.I.get<ForgotPasswordRepository>();
 
-  ForgotPasswordBloc({required this.forgotPasswordRepository})
-      : super(ForgotPasswordInitial()) {
+  ForgotPasswordBloc() : super(ForgotPasswordInitial()) {
     on<ForgotPasswordSendEmail>(_forgotPassword);
   }
 

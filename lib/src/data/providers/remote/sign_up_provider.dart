@@ -1,10 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 
-class SignUpProvider {
+abstract class SignUpProvider {
+  Future<void> signUpWithEmailAndPassword({
+    required String email,
+    required String password,
+  });
+}
+
+@Injectable(as: SignUpProvider)
+class SignUpProviderImpl implements SignUpProvider {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> signUpWithEmailAndPassword(
-      {required String email, required String password}) async {
+  @override
+  Future<void> signUpWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);

@@ -1,10 +1,11 @@
+// ignore: unused_import
 import 'package:chatapp/src/data/repositories/phone_repo.dart';
-import 'package:chatapp/src/data/repositories/user_repo.dart';
 import 'package:chatapp/src/features/authentication/verify_OTP/bloc/verify_otp_bloc.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
 import 'package:chatapp/src/theme/color_theme.dart';
 import 'package:chatapp/src/utils/dialog_util.dart';
 import 'package:chatapp/src/widgets/background_image.dart';
+import 'package:chatapp/src/widgets/custom_arrow_back.dart';
 import 'package:chatapp/src/widgets/custom_button.dart';
 import 'package:chatapp/src/widgets/slogan.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,8 +13,6 @@ import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../widgets/custom_arrow_back.dart';
 
 class VerifyOTPPage extends StatefulWidget {
   final String verificationId;
@@ -37,10 +36,7 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => VerifyOtpBloc(
-        phoneRepository: PhoneRepository(),
-        userRepository: UserRepository(),
-      ),
+      create: (context) => VerifyOtpBloc(),
       child: BlocConsumer<VerifyOtpBloc, VerifyOtpState>(
         listener: (context, state) {
           if (state is VerifyOTPSuccess) {

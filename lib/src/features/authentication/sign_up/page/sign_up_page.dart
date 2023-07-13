@@ -1,5 +1,3 @@
-import 'package:chatapp/src/data/repositories/sign_up_repo.dart';
-import 'package:chatapp/src/data/repositories/user_repo.dart';
 import 'package:chatapp/src/features/authentication/sign_up/widgets/form_sign_up.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
 import 'package:chatapp/src/widgets/background_image.dart';
@@ -36,52 +34,54 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SignUpBloc(
-        signUpRepository: SignUpRepository(),
-        userRepository: UserRepository(),
-      ),
-      child: BlocConsumer<SignUpBloc, SignUpState>(listener: (context, state) {
-        if (state is SignUpSuccess) {
-          context.go("/sign_in");
-        }
-        if (state is SignUpGoogleSuccess) {
-          context.go("/dashboard");
-        }
-        if (state is SignUpError) {
-          _showStateError(context, state);
-        }
-      }, builder: (context, state) {
-        return Scaffold(
-          body: SingleChildScrollView(
-            child: Stack(children: [
-              const BackgroundImageWidget(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 120.h),
-                    SloganWidget(
-                      slogan: AppLocalizations.of(context)!.sloganSignUp,
-                      title: AppLocalizations.of(context)!.signUp,
+      create: (context) => SignUpBloc(),
+      child: BlocConsumer<SignUpBloc, SignUpState>(
+        listener: (context, state) {
+          if (state is SignUpSuccess) {
+            context.go("/sign_in");
+          }
+          if (state is SignUpGoogleSuccess) {
+            context.go("/dashboard");
+          }
+          if (state is SignUpError) {
+            _showStateError(context, state);
+          }
+        },
+        builder: (context, state) {
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Stack(
+                children: [
+                  const BackgroundImageWidget(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 120.h),
+                        SloganWidget(
+                          slogan: AppLocalizations.of(context)!.sloganSignUp,
+                          title: AppLocalizations.of(context)!.signUp,
+                        ),
+                        SizedBox(height: 20.h),
+                        _buildBody(context),
+                        SizedBox(height: 10.h),
+                        NavigationAuthTextWidget(
+                            firstText: AppLocalizations.of(context)!
+                                .alreadyHaveAccount,
+                            secondText: AppLocalizations.of(context)!.signIn,
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => context.go("/sign_in")),
+                      ],
                     ),
-                    SizedBox(height: 20.h),
-                    _buildBody(context),
-                    SizedBox(height: 10.h),
-                    NavigationAuthTextWidget(
-                        firstText:
-                            AppLocalizations.of(context)!.alreadyHaveAccount,
-                        secondText: AppLocalizations.of(context)!.signIn,
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () => context.go("/sign_in")),
-                  ],
-                ),
+                  ),
+                  if (state is SignUpLoading) ...[const BuildLoadingCircle()]
+                ],
               ),
-              if (state is SignUpLoading) ...[const BuildLoadingCircle()]
-            ]),
-          ),
-        );
-      }),
+            ),
+          );
+        },
+      ),
     );
   }
 

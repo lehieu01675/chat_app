@@ -24,5 +24,6 @@
      "verifyFailed": "Verify failed",
      "otpIncorrect": "OTP code is incorrect",
      "verifyOTP": "Verify OTP",
-     "sloganVerifyOTP": "We have sent the otp code. Check the sms and enter the code correctly."
+     "sloganVerifyOTP": "We have sent the otp code. Check the sms and enter the code correctly.",
+     "enterID": "Enter ID"
 }

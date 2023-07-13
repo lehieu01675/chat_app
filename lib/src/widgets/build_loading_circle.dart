@@ -5,11 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class BuildLoadingCircle extends StatelessWidget {
   final double? width;
   final double? height;
+  final Color? color;
 
   const BuildLoadingCircle({
     super.key,
     this.width,
-    this.height,
+    this.height, this.color,
   });
 
   @override
@@ -18,7 +19,7 @@ class BuildLoadingCircle extends StatelessWidget {
       alignment: Alignment.center,
       width: ScreenUtil().screenWidth,
       height: ScreenUtil().screenHeight,
-      color: ColorTheme.silverChalice.withOpacity(0.7),
+      color: color ?? ColorTheme.silverChalice.withOpacity(0.7),
       child: CircularProgressIndicator(
         color: ColorTheme.curiousBlue,
       ),
