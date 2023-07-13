@@ -1,4 +1,5 @@
 abstract class AppPages {
-  static String get authGate => '/';
-  static const signIn = '/sign_in';
+  static const authGate = "/";
+  static const signIn = "/signIn";
+
 }

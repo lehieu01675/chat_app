@@ -55,7 +55,7 @@ dependencies:
 
 
 dev_dependencies:
-  hive_generator: ^2.0.0
+  hive_generator:
   injectable_generator:
   build_runner:
   flutter_gen_runner:

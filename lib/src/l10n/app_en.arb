@@ -18,6 +18,7 @@
      "sloganPhoneNumber": "Once submitted, we will verify the phone number quickly and securely. Please wait a moment!",
      "wrongPassword": "Wrong password. Please check your password again",
      "emailNotRegistered": "Email is not registered account",
+     "wrongPassword": "Wrong password. Please check your password again",
      "signInFailed": "Sign in failed",
      "signUpFailed": "Sign up failed",
      "phoneNumberValid": "Phone number is valid",
@@ -26,4 +27,5 @@
      "verifyOTP": "Verify OTP",
      "sloganVerifyOTP": "We have sent the otp code. Check the sms and enter the code correctly.",
      "enterID": "Enter ID"
+
 }
