@@ -87,4 +87,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sentEmail => 'Sent email';
+
+  @override
+  String get changeLanguage => 'Thay đổi ngôn ngữ';
 }

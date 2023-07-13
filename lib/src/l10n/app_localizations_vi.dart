@@ -87,4 +87,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get sentEmail => 'Đã gửi email';
+
+  @override
+  String get changeLanguage => 'Change language';
 }

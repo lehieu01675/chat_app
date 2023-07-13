@@ -51,53 +51,53 @@ class CustomChatCard extends StatelessWidget {
 
   Widget _card({required BuildContext context, required Size size}) {
     return Card(
-        elevation: 5,
-        margin: const EdgeInsets.symmetric(vertical: 5),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: InkWell(
-            onTap: () {
-              // get the id of guestUser
-              // because conversationId need a guestUser's id
-              // when listen using contructor i can't set the guestUser to contructor
-              ChatRepository.conversationId = guestUser.id;
+      elevation: 5,
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: InkWell(
+        onTap: () {
+          // get the id of guestUser
+          // because conversationId need a guestUser's id
+          // when listen using contructor i can't set the guestUser to contructor
+          ChatRepository.conversationId = guestUser.id;
 
-              isChatPage
-                  ? TransitionHelper.nextScreen(
-                      context,
-                      ChatScreen(
-                        currentUser: currentUser,
-                        guestUser: guestUser,
-                      ))
-                  : () {};
-            },
-            child: ListTile(
-              subtitle: subTitle,
-              // show name of chat user
-              title: Text(
-                guestUser.name,
-                style: const TextStyle(fontSize: 20),
-                maxLines: 1,
+          isChatPage
+              ? TransitionHelper.nextScreen(
+                  context,
+                  ChatScreen(
+                    currentUser: currentUser,
+                    guestUser: guestUser,
+                  ))
+              : () {};
+        },
+        child: ListTile(
+          subtitle: subTitle,
+          // show name of chat user
+          title: Text(
+            guestUser.name,
+            style: const TextStyle(fontSize: 20),
+            maxLines: 1,
+          ),
+          trailing: trailing,
+          leading: InkWell(
+            // show profile page of chat user
+            onTap: () => showDialog(
+                context: context,
+                builder: (_) => ProfilePage(currentUser: guestUser)),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(size.height * .05),
+              child: CachedNetworkImage(
+                fit: BoxFit.cover,
+                width: context.sizeWidth(SizeHelper.widthHeightAvatar),
+                height: context.sizeWidth(SizeHelper.widthHeightAvatar),
+                imageUrl: guestUser.image,
+                errorWidget: (context, url, error) =>
+                    const CircleAvatar(child: Icon(CupertinoIcons.person)),
               ),
-              trailing: trailing,
-              leading: InkWell(
-                // show profile page of chat user
-                onTap: () => showDialog(
-                    context: context,
-                    builder: (_) => ProfilePage(currentUser: guestUser)),
-
-                // show avatar
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(size.height * .05),
-                  child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    width: context.sizeWidth(SizeHelper.widthHeightAvatar),
-                    height: context.sizeWidth(SizeHelper.widthHeightAvatar),
-                    imageUrl: guestUser.image,
-                    errorWidget: (context, url, error) =>
-                        const CircleAvatar(child: Icon(CupertinoIcons.person)),
-                  ),
-                ),
-              ),
-            )));
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

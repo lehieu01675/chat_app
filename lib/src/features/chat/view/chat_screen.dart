@@ -2,7 +2,6 @@ import 'package:chatapp/src/data/models/user_model.dart';
 import 'package:chatapp/src/features/main_screen/bloc/main_page_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:chatapp/src/widgets/custom_message_box.dart';
 import 'package:chatapp/src/features/chat/bloc/chat_bloc.dart';
 import 'package:chatapp/src/features/chat/build_widgets/build_app_bar_chat_screen.dart';
@@ -62,40 +61,17 @@ class _ChatScreenState extends State<ChatScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Expanded(
-                              child: AnimationLimiter(
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    reverse: true,
-                                    itemCount: _listMessage!.length,
-                                    physics: const BouncingScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      // list animation
-                                      return AnimationConfiguration
-                                          .staggeredList(
-                                        position: index,
-                                        delay:
-                                            const Duration(milliseconds: 100),
-                                        child: SlideAnimation(
-                                          duration: const Duration(
-                                              milliseconds: 2500),
-                                          curve: Curves.fastLinearToSlowEaseIn,
-                                          child: FadeInAnimation(
-                                            curve:
-                                                Curves.fastLinearToSlowEaseIn,
-                                            duration: const Duration(
-                                                milliseconds: 2500),
-                                            child: CustomMessageCard(
-                                                messageModel:
-                                                    _listMessage![index],
-                                                isCurrentUser:
-                                                    (widget.currentUser.id ==
-                                                        _listMessage![index]
-                                                            .fromId)),
-                                          ),
-                                        ),
-                                      );
-                                    }),
-                              ),
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  reverse: true,
+                                  itemCount: _listMessage!.length,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    return CustomMessageCard(
+                                        messageModel: _listMessage![index],
+                                        isCurrentUser: (widget.currentUser.id ==
+                                            _listMessage![index].fromId));
+                                  }),
                             ),
                             // check process when send image
                             (state.status == ChatStatus.imageLoading)

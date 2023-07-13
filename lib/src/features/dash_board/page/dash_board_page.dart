@@ -4,7 +4,7 @@ import 'package:chatapp/src/data/models/user_model.dart';
 import 'package:chatapp/src/features/contact/view/contact_page.dart';
 import 'package:chatapp/src/features/dash_board/bloc/dashboard_bloc.dart';
 import 'package:chatapp/src/features/main_screen/page/main_page.dart';
-import 'package:chatapp/src/router/app_pages.dart';
+import 'package:chatapp/src/router/route_paths.dart';
 import 'package:chatapp/src/theme/color_theme.dart';
 import 'package:chatapp/src/widgets/background_image.dart';
 import 'package:flutter/material.dart';

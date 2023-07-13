@@ -1,5 +1,5 @@
 import 'package:chatapp/src/l10n/app_localizations.dart';
-import 'package:chatapp/src/router/app_pages.dart';
+import 'package:chatapp/src/router/route_paths.dart';
 import 'package:chatapp/src/theme/font_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

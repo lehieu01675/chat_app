@@ -1,7 +1,8 @@
 import 'package:chatapp/src/features/authentication/sign_in/widgets/form_sign_in.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
-import 'package:chatapp/src/router/app_pages.dart';
+import 'package:chatapp/src/router/route_paths.dart';
 import 'package:chatapp/src/widgets/background_image.dart';
+import 'package:chatapp/src/widgets/custom_text_button.dart';
 import 'package:chatapp/src/widgets/navigation_auth_text.dart';
 import 'package:chatapp/src/widgets/or_sign_in_with.dart';
 import 'package:chatapp/src/widgets/sign_in_with_gg_sms.dart';
@@ -51,6 +52,11 @@ class _SignInPageState extends State<SignInPage> {
                 child: Stack(
                   children: [
                     const BackgroundImageWidget(),
+                    Positioned(
+                      top: 20.h,
+                      right: 20.w,
+                      child: CustomTextButton.changeLanguage(context),
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: Column(

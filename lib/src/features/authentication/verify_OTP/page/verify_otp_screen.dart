@@ -2,7 +2,7 @@
 import 'package:chatapp/src/data/repositories/phone_repo.dart';
 import 'package:chatapp/src/features/authentication/verify_OTP/bloc/verify_otp_bloc.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
-import 'package:chatapp/src/router/app_pages.dart';
+import 'package:chatapp/src/router/route_paths.dart';
 import 'package:chatapp/src/theme/color_theme.dart';
 import 'package:chatapp/src/utils/dialog_util.dart';
 import 'package:chatapp/src/widgets/background_image.dart';
