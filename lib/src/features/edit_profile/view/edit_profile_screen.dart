@@ -1,13 +1,13 @@
 import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chatapp/src/data/models/user_model.dart';
+import 'package:chatapp/src/features/dash_board/page/dash_board_page.dart';
 import 'package:chatapp/src/features/edit_profile/bloc/editing_profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:chatapp/src/widgets/custom_button.dart';
 import 'package:chatapp/src/widgets/custom_text_form_field.dart';
-import 'package:chatapp/src/features/dash_board/view/dash_board_screen.dart';
 import 'package:chatapp/src/utils/dialog_util.dart';
 import 'package:chatapp/src/helper/size_helper.dart';
 import 'package:chatapp/src/helper/transition_screen_helper.dart';
@@ -265,7 +265,7 @@ class _EditingProfileScreenState extends State<EditingProfileScreen> {
         dialogType: DialogType.SUCCES,
         message: '',
         onPressedOK: () {
-          TransitionHelper.nextScreenReplace(context, const DashboardScreen());
+          TransitionHelper.nextScreenReplace(context, const DashboardPage());
         },
         iconData: Icons.check,
         colorOkButton: Colors.blue);

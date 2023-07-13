@@ -1,25 +1,28 @@
 import 'dart:async';
-
 import 'package:chatapp/src/data/models/user_model.dart';
-import 'package:chatapp/src/features/main_screen/repositories/main_screen_repo.dart';
+import 'package:chatapp/src/data/repositories/chat_user_repository.dart';
+import 'package:chatapp/src/data/repositories/list_chat_user_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-part 'main_screen_event.dart';
-part 'main_screen_state.dart';
 
-class MainScreenBloc extends Bloc<MainScreenEvent, MainScreenState> {
-  MainScreenRepository mainScreenRepository;
+part 'main_page_event.dart';
+
+part 'main_page_state.dart';
+
+class MainPageBloc extends Bloc<MainScreenEvent, MainScreenState> {
+  ListChatUserRepository listChatUserRepository;
+  ChatUserRepository chatUserRepository;
   StreamSubscription<List<UserModel>>? _subscriptionChatUsers;
 
-  MainScreenBloc({required this.mainScreenRepository})
-      : super(MainScreenLoading()) {
+  MainPageBloc({
+    required this.listChatUserRepository,
+    required this.chatUserRepository,
+  }) : super(MainScreenLoading()) {
     on<MainScreenGetListChatUser>(_getListChatUser);
     on<MainScreenAddChatUser>(_addNewChatUser);
-    on<MainScreenDeleteChatUser>(_deleteChatUser);
-
-    /// listen changes on firebase to add event
+    on<MainScreenRemoveChatUser>(_removeChatUser);
     _subscriptionChatUsers =
-        mainScreenRepository.streamChatUsers.listen((event) {
+        listChatUserRepository.streamChatUsers.listen((event) {
       add(MainScreenGetListChatUser(listChatUser: event));
     });
   }
@@ -34,22 +37,19 @@ class MainScreenBloc extends Bloc<MainScreenEvent, MainScreenState> {
     }
   }
 
-  /// add new chat user
   Future<void> _addNewChatUser(
       MainScreenAddChatUser event, Emitter<MainScreenState> emit) async {
     try {
-      await mainScreenRepository.addChatUser(event.checkId);
-      //result ? emit(MainScreenAddMainScreenUserSuccessed()) : null;
+      await chatUserRepository.addChatUser(chatId: event.checkId);
     } catch (e) {
       emit(MainScreenError(error: e.toString()));
     }
   }
 
-  /// delte chat user
-  Future<void> _deleteChatUser(
-      MainScreenDeleteChatUser event, Emitter<MainScreenState> emit) async {
+  Future<void> _removeChatUser(
+      MainScreenRemoveChatUser event, Emitter<MainScreenState> emit) async {
     try {
-      await mainScreenRepository.deleteChatUser(id: event.id);
+      await chatUserRepository.removeChatUser(id: event.id);
     } catch (e) {
       emit(MainScreenError(error: e.toString()));
     }
@@ -58,7 +58,7 @@ class MainScreenBloc extends Bloc<MainScreenEvent, MainScreenState> {
   @override
   Future<void> close() {
     _subscriptionChatUsers?.cancel();
-    mainScreenRepository.close();
+    listChatUserRepository.close();
     return super.close();
   }
 }

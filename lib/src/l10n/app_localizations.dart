@@ -248,6 +248,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'We have sent the otp code. Check the sms and enter the code correctly.'**
   String get sloganVerifyOTP;
+
+  /// No description provided for @enterID.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter ID'**
+  String get enterID;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

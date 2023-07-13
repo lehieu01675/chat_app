@@ -1,29 +1,32 @@
 import 'dart:developer';
+import 'package:chatapp/src/constant/text_cons.dart';
 import 'package:chatapp/src/data/models/user_model.dart';
+import 'package:chatapp/src/features/contact/view/contact_page.dart';
 import 'package:chatapp/src/features/dash_board/bloc/dashboard_bloc.dart';
+import 'package:chatapp/src/features/main_screen/page/main_page.dart';
+import 'package:chatapp/src/theme/color_theme.dart';
+import 'package:chatapp/src/widgets/background_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:chatapp/src/widgets/basic_app_bar.dart';
-import 'package:chatapp/src/widgets/build_loading_circle.dart';
-import 'package:chatapp/src/features/contact/view/contact_screen.dart';
-import 'package:chatapp/src/features/main_screen/view/main_screen.dart';
 import 'package:chatapp/src/features/profile/view/profile_screen.dart';
 import 'package:chatapp/src/helper/color_helper.dart';
 
-
-class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({super.key});
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  State<DashboardPage> createState() => _DashboardPageState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _DashboardPageState extends State<DashboardPage> {
   UserModel currentUser = UserModel(
-    listChatID: [],
+      listChatID: [],
       image: '',
       introduce: '',
       name: '',
@@ -58,33 +61,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: const BasicAppBar(),
       bottomNavigationBar: _bottomNavigationBar(),
-      body: BlocListener<DashboardBloc, DashboardState>(
+      body: BlocConsumer<DashboardBloc, DashboardState>(
         listener: (context, state) {
           if (state is DashboardCreateNewDataUserFailed) {
-            /// if don't get the information of current user => push to signIn
-            //  TransitionHelper.nextScreenReplace(context, SignInPage());
+            context.go("/sign_in");
           }
         },
-        child: BlocBuilder<DashboardBloc, DashboardState>(
-          builder: (context, state) {
-            if (state is DashboardGetCurrentUserSuccess) {
-              /// get the information of current user
-              currentUser = state.currentUser;
-
-              /// tab include 3 main Screen
-              final tab = [
-                ContactPage(currentUser: currentUser),
-                MainScreen(currentUser: currentUser),
-                ProfilePage(currentUser: currentUser)
-              ];
-
-                return tab[_currentIndex];
-
-            }
-            return const Center(
-                child: BuildLoadingCircle(width: 100, height: 100));
-          },
-        ),
+        builder: (context, state) {
+          if (state is DashboardGetCurrentUserSuccess) {
+            currentUser = state.currentUser;
+            final tab = [
+              ContactPage(currentUser: currentUser),
+              MainPage(currentUser: currentUser),
+              ProfilePage(currentUser: currentUser)
+            ];
+            return tab[_currentIndex];
+          }
+          return const BackgroundImageWidget();
+        },
       ),
     );
   }
@@ -116,42 +110,41 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
   }
 
-  /// bottom navigation bar
   Widget _bottomNavigationBar() {
     return Container(
       decoration: BoxDecoration(
-        color: ColorHelper.lightMain,
+        color: ColorTheme.curiousBlue,
         boxShadow: [
           BoxShadow(
-            blurRadius: 20,
+            blurRadius: 20.r,
             color: Colors.black.withOpacity(0.3),
           )
         ],
       ),
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
           child: GNav(
             rippleColor: Colors.grey[300]!,
             hoverColor: Colors.grey[100]!,
             gap: 5,
             activeColor: Colors.black,
-            iconSize: 30,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            iconSize: 30.sp,
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
             duration: const Duration(milliseconds: 400),
             tabBackgroundColor: Colors.grey[100]!,
             tabs: [
               GButton(
                   icon: LineIcons.peopleCarry,
-                  text: 'Contacts',
+                  text: TextConstant.contact,
                   iconColor: ColorHelper.lightIconBottomNavigationBar),
               GButton(
                   icon: LineIcons.facebookMessenger,
-                  text: 'Chat',
+                  text: TextConstant.chat,
                   iconColor: ColorHelper.lightIconBottomNavigationBar),
               GButton(
                   icon: LineIcons.userCircle,
-                  text: 'Profile',
+                  text: TextConstant.profile,
                   iconColor: ColorHelper.lightIconBottomNavigationBar),
             ],
             selectedIndex: _currentIndex,

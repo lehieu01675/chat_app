@@ -81,4 +81,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get sloganVerifyOTP => 'Chúng tôi đã gửi mã otp. Kiểm tra sms và điền chính xác mã.';
+
+  @override
+  String get enterID => 'Nhập ID';
 }
