@@ -1,5 +1,6 @@
 import 'package:chatapp/src/features/authentication/sign_in/bloc/sign_in_bloc.dart';
 import 'package:chatapp/src/features/authentication/sign_up/bloc/sign_up_bloc.dart';
+import 'package:chatapp/src/router/app_pages.dart';
 import 'package:chatapp/src/theme/assets.gen.dart';
 import 'package:chatapp/src/widgets/custom_svg_image.dart';
 import 'package:flutter/material.dart';
@@ -37,8 +38,8 @@ class SignInWithGoogleSmsWidget extends StatelessWidget {
           height: 50.w,
           onTap: () {
             isInSignIn
-                ? context.go("/sign_in/phone_number")
-                : context.go("/sign_up/phone_number");
+                ? context.go(RoutePaths.phoneNumberSignIn)
+                : context.go(RoutePaths.phoneNumberSignUp);
           },
         ),
       ],

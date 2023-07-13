@@ -1,4 +1,5 @@
 import 'package:chatapp/src/l10n/app_localizations.dart';
+import 'package:chatapp/src/router/app_pages.dart';
 import 'package:chatapp/src/theme/font_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -16,7 +17,7 @@ class ForgotPasswordWidget extends StatelessWidget {
               AppLocalizations.of(context)!.forgotPassword,
               style: FontTheme.mineShaft15W400UnderlinePoppins,
             ),
-            onPressed: () => context.go("/sign_in/forgot_password")),
+            onPressed: () => context.go(RoutePaths.forgotPassword)),
       ],
     );
   }
