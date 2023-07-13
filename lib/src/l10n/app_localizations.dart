@@ -138,7 +138,7 @@ abstract class AppLocalizations {
   /// No description provided for @sloganForgotPassword.
   ///
   /// In en, this message translates to:
-  /// **'Enter your email address'**
+  /// **'We have sent you an email. Click to link to reset your password'**
   String get sloganForgotPassword;
 
   /// No description provided for @send.
@@ -254,6 +254,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter ID'**
   String get enterID;
+
+  /// No description provided for @sentEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent email'**
+  String get sentEmail;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -26,7 +26,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get forgotPassword => 'Quên mật khẩu?';
 
   @override
-  String get sloganForgotPassword => 'Điền email của bạn';
+  String get sloganForgotPassword => 'Chúng tôi đã gửi mail tới gmail của bạn. Nhấn vào link trong mail để đổi mật khẩu';
 
   @override
   String get send => 'Gửi';
@@ -56,7 +56,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get sloganPhoneNumber => 'Sau khi gửi, chúng tôi sẽ xác minh số điện thoại một cách nhanh chóng và an toàn. Xin vui lòng chờ trong giây lát!';
 
   @override
-  String get wrongPassword => 'Sai mật khẩu. Vui lòng kiểm tra lại mật khẩu';
+  String get wrongPassword => 'Sai mật khẩu. Vui lòng kiểm tra lại mật khẩu.';
 
   @override
   String get emailNotRegistered => 'Email này chưa được đăng kí tài khoản';
@@ -84,4 +84,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get enterID => 'Nhập ID';
+
+  @override
+  String get sentEmail => 'Đã gửi email';
 }

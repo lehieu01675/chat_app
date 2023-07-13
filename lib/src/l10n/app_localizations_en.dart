@@ -26,7 +26,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forgotPassword => 'Forgot password?';
 
   @override
-  String get sloganForgotPassword => 'Enter your email address';
+  String get sloganForgotPassword => 'We have sent you an email. Click to link to reset your password';
 
   @override
   String get send => 'Send';
@@ -84,4 +84,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enterID => 'Enter ID';
+
+  @override
+  String get sentEmail => 'Sent email';
 }

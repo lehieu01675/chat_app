@@ -25,13 +25,7 @@ class ForgotPasswordPage extends StatelessWidget {
       child: BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
         listener: (context, state) {
           if (state is ForgotPasswordSendSuccess) {
-            DialogUtil.showSuccess(
-              context: context,
-              title: 'Sent email',
-              message:
-                  'We have sent you an email. Click to link to reset your password',
-              onPressedOK: () => context.pop(true),
-            );
+            _showSuccessDialog(context);
           }
           if (state is ForgotPasswordError) {
             _showStateError(context, state);
@@ -76,6 +70,16 @@ class ForgotPasswordPage extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  void _showSuccessDialog(BuildContext context) {
+    DialogUtil.showSuccess(
+      context: context,
+      title:  AppLocalizations.of(context)!.sentEmail,
+      message:
+          AppLocalizations.of(context)!.sloganPhoneNumber,
+      onPressedOK: () => context.pop(true),
     );
   }
 

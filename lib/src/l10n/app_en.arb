@@ -25,7 +25,9 @@
      "verifyFailed": "Verify failed",
      "otpIncorrect": "OTP code is incorrect",
      "verifyOTP": "Verify OTP",
+     "sloganForgotPassword": "We have sent you an email. Click to link to reset your password",
      "sloganVerifyOTP": "We have sent the otp code. Check the sms and enter the code correctly.",
-     "enterID": "Enter ID"
+     "enterID": "Enter ID",
+     "sentEmail": "Sent email"
 
 }

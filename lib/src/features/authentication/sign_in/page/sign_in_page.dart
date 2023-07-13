@@ -1,5 +1,6 @@
 import 'package:chatapp/src/features/authentication/sign_in/widgets/form_sign_in.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
+import 'package:chatapp/src/router/app_pages.dart';
 import 'package:chatapp/src/widgets/background_image.dart';
 import 'package:chatapp/src/widgets/navigation_auth_text.dart';
 import 'package:chatapp/src/widgets/or_sign_in_with.dart';
@@ -37,7 +38,7 @@ class _SignInPageState extends State<SignInPage> {
       child: BlocListener<SignInBloc, SignInState>(
         listener: (context, state) {
           if (state is SignInSuccess) {
-            context.go("/dashboard");
+            context.go(RoutePaths.dashboard);
           }
           if (state is SignInError) {
             _showStateError(context, state);
@@ -68,7 +69,7 @@ class _SignInPageState extends State<SignInPage> {
                                   AppLocalizations.of(context)!.dontHaveAccount,
                               secondText: AppLocalizations.of(context)!.signUp,
                               recognizer: TapGestureRecognizer()
-                                ..onTap = () => context.go("/sign_up")),
+                                ..onTap = () => context.go(RoutePaths.signUp)),
                         ],
                       ),
                     ),

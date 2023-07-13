@@ -1,5 +1,6 @@
 import 'package:chatapp/src/features/authentication/sign_up/widgets/form_sign_up.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
+import 'package:chatapp/src/router/app_pages.dart';
 import 'package:chatapp/src/widgets/background_image.dart';
 import 'package:chatapp/src/widgets/custom_button.dart';
 import 'package:chatapp/src/widgets/navigation_auth_text.dart';
@@ -38,10 +39,10 @@ class _SignUpPageState extends State<SignUpPage> {
       child: BlocConsumer<SignUpBloc, SignUpState>(
         listener: (context, state) {
           if (state is SignUpSuccess) {
-            context.go("/sign_in");
+            context.go(RoutePaths.signIn);
           }
           if (state is SignUpGoogleSuccess) {
-            context.go("/dashboard");
+            context.go(RoutePaths.dashboard);
           }
           if (state is SignUpError) {
             _showStateError(context, state);
@@ -71,7 +72,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 .alreadyHaveAccount,
                             secondText: AppLocalizations.of(context)!.signIn,
                             recognizer: TapGestureRecognizer()
-                              ..onTap = () => context.go("/sign_in")),
+                              ..onTap = () => context.go(RoutePaths.signIn)),
                       ],
                     ),
                   ),

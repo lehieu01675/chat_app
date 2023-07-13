@@ -1,3 +1,4 @@
+import 'package:chatapp/src/constant/text_cons.dart';
 import 'package:chatapp/src/features/authentication/forgot_password/page/forgot_password_page.dart';
 import 'package:chatapp/src/features/authentication/phong_number/page/phone_number_page.dart';
 import 'package:chatapp/src/features/authentication/sign_in/page/sign_in_page.dart';
@@ -16,24 +17,26 @@ class AppRouter {
           builder: (context, state) => const AuthGate(),
           routes: [
             GoRoute(
-              path: 'sign_in',
+              path: TextConstant.signInPath,
               builder: (context, state) => const SignInPage(),
               routes: [
                 GoRoute(
-                  path: 'forgot_password',
+                  path: TextConstant.forgotPasswordPath,
                   builder: (context, state) => ForgotPasswordPage(),
                 ),
                 GoRoute(
-                    path: 'phone_number',
+                    path: TextConstant.phoneNumberPath,
                     builder: (context, state) => const PhoneSignInPage(),
                     routes: [
                       GoRoute(
-                          path: 'verify_OTP',
+                          path: TextConstant.verifyOtpPath,
                           builder: (context, state) {
-                            final verificationId =
-                                state.queryParameters['verificationId'] ?? '';
-                            final phoneNumber =
-                                state.queryParameters['phoneNumber'] ?? '';
+                            final verificationId = state.queryParameters[
+                                    TextConstant.verificationID] ??
+                                '';
+                            final phoneNumber = state.queryParameters[
+                                    TextConstant.phoneNumber] ??
+                                '';
                             return VerifyOTPPage(
                               verificationId: verificationId,
                               phoneNumber: phoneNumber,
@@ -43,16 +46,16 @@ class AppRouter {
               ],
             ),
             GoRoute(
-                path: 'sign_up',
+                path: TextConstant.signUpPath,
                 builder: (context, state) => const SignUpPage(),
                 routes: [
                   GoRoute(
-                    path: 'phone_number',
+                    path: TextConstant.phoneNumberPath,
                     builder: (context, state) => const PhoneSignInPage(),
                   )
                 ]),
             GoRoute(
-              path: 'dashboard',
+              path: TextConstant.dashboardPath,
               builder: (context, state) => const DashboardPage(),
             ),
           ]),
