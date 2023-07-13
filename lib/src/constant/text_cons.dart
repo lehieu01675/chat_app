@@ -19,4 +19,6 @@ class TextConstant {
   static const String verifyOtpPath = "verify_OTP";
   static const String verificationID = "verificationId";
   static const String phoneNumber = "phoneNumber";
+  static const String languageCode = "languageCode";
+  static const String isFirstTime = "isFirstTime";
 }
