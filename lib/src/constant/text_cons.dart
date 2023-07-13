@@ -8,4 +8,6 @@ class TextConstant {
   static const String contact = "Contact";
   static const String chat = "Chat";
   static const String profile = "Profile";
+  static const String userNotFound = "user-not-found";
+  static const String wrongPassword = "wrong-password";
 }

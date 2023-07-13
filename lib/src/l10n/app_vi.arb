@@ -18,6 +18,7 @@
    "sloganPhoneNumber": "Sau khi gửi, chúng tôi sẽ xác minh số điện thoại một cách nhanh chóng và an toàn. Xin vui lòng chờ trong giây lát!",
    "wrongPassword": "Sai mật khẩu. Vui lòng kiểm tra lại mật khẩu",
    "emailNotRegistered": "Email này chưa được đăng kí tài khoản",
+   "wrongPassword": "Sai mật khẩu. Vui lòng kiểm tra lại mật khẩu.",
    "signInFailed": "Đăng nhập thất bại",
    "signUpFailed": "Đăng kí thất bại",
    "phoneNumberValid": "Số điện thoại không hợp lệ",
@@ -26,4 +27,5 @@
    "verifyOTP": "Xác minh mã OTP",
    "sloganVerifyOTP": "Chúng tôi đã gửi mã otp. Kiểm tra sms và điền chính xác mã.",
    "enterID": "Nhập ID"
+
 }

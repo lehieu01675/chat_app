@@ -1,3 +1,7 @@
+import 'package:chatapp/src/constant/text_cons.dart';
+import 'package:chatapp/src/data/exceptions/sign_in_exception.dart';
+import 'package:chatapp/src/l10n/app_localizations.dart';
+import 'package:chatapp/src/utils/app_context.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
@@ -23,10 +27,14 @@ class SignInProviderImpl implements SignInProvider {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        throw Exception('Email is not registered account');
-      } else if (e.code == 'wrong-password') {
-        throw Exception('Wrong password. Please check your password again');
+      if (e.code == TextConstant.userNotFound) {
+        throw SignInException(
+            AppLocalizations.of(AppContext.getContext()!)!.emailNotRegistered);
+      } else if (e.code == TextConstant.wrongPassword) {
+        throw SignInException(
+            AppLocalizations.of(AppContext.getContext()!)!.wrongPassword);
+      } else {
+        throw Exception("Unknown exception");
       }
     }
   }
