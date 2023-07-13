@@ -1,6 +1,4 @@
 import 'package:chatapp/src/data/models/user_model.dart';
-import 'package:chatapp/src/data/repositories/chat_user_repository.dart';
-import 'package:chatapp/src/data/repositories/list_chat_user_repo.dart';
 import 'package:chatapp/src/features/authentication/phong_number/widgets/list_chat_card.dart';
 import 'package:chatapp/src/features/main_screen/bloc/main_page_bloc.dart';
 import 'package:chatapp/src/features/main_screen/widgets/floating_button.dart';
@@ -24,10 +22,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MainPageBloc(
-        listChatUserRepository: ListChatUserRepository(),
-        chatUserRepository: ChatUserRepository(),
-      ),
+      create: (context) => MainPageBloc(),
       child: BlocBuilder<MainPageBloc, MainScreenState>(
         builder: (context, state) {
           if (state is MainScreenGetListChatUserSuccess) {

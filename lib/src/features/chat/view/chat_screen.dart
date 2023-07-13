@@ -1,6 +1,4 @@
 import 'package:chatapp/src/data/models/user_model.dart';
-import 'package:chatapp/src/data/repositories/chat_user_repository.dart';
-import 'package:chatapp/src/data/repositories/list_chat_user_repo.dart';
 import 'package:chatapp/src/features/main_screen/bloc/main_page_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,10 +37,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MainPageBloc(
-        listChatUserRepository: ListChatUserRepository(),
-        chatUserRepository: ChatUserRepository(),
-      ),
+      create: (context) => MainPageBloc(),
       child: Scaffold(
           appBar: BuildAppBarChatScreen(
             currentUser: widget.currentUser,

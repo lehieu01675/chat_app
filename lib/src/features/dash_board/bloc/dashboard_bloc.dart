@@ -3,15 +3,16 @@ import 'package:chatapp/src/data/repositories/user_repo.dart';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 part 'dashboard_event.dart';
 
 part 'dashboard_state.dart';
 
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
-  UserRepository userRepository;
+  UserRepository userRepository = GetIt.I.get<UserRepository>();
 
-  DashboardBloc({required this.userRepository}) : super(DashboardLoading()) {
+  DashboardBloc() : super(DashboardLoading()) {
     on<DashboardGetCurrentUser>(_getCurrentUser);
     on<DashboardUpdateUserStatus>(_updateUserStatus);
   }

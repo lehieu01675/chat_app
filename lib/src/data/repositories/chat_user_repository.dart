@@ -1,12 +1,23 @@
 import 'package:chatapp/src/data/providers/remote/chat_user_provider.dart';
+import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 
-class ChatUserRepository {
-  final ChatUserProvider _chatUserProvider = ChatUserProvider();
+abstract class ChatUserRepository {
+  Future<bool> addChatUser({required String checkID});
 
-  Future<bool> addChatUser({required String chatId}) async {
-    return await _chatUserProvider.addChatUser(chatId);
+  Future<void> removeChatUser({required String id});
+}
+
+@Injectable(as: ChatUserRepository)
+class ChatUserRepositoryImpl implements ChatUserRepository {
+  final ChatUserProvider _chatUserProvider = GetIt.I.get<ChatUserProvider>();
+
+  @override
+  Future<bool> addChatUser({required String checkID}) async {
+    return await _chatUserProvider.addChatUser(checkID: checkID);
   }
 
+  @override
   Future<void> removeChatUser({required String id}) async {
     await _chatUserProvider.removeChatUser(id: id);
   }

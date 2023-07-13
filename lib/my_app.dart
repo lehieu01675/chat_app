@@ -1,5 +1,4 @@
 import 'package:chatapp/src/constant/text_cons.dart';
-import 'package:chatapp/src/data/repositories/user_repo.dart';
 import 'package:chatapp/src/features/dash_board/bloc/dashboard_bloc.dart';
 import 'package:chatapp/src/features/edit_profile/bloc/editing_profile_bloc.dart';
 import 'package:chatapp/src/features/edit_profile/repositories/edit_profile_repo.dart';
@@ -20,9 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-            create: ((context) =>
-                DashboardBloc(userRepository: UserRepository()))),
+        BlocProvider(create: ((context) => DashboardBloc())),
         BlocProvider(
             create: ((context) => EditingProfileBloc(
                 editingProfileRepository: EditingProfileRepository()))),

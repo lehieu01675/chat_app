@@ -1,5 +1,3 @@
-import 'package:chatapp/src/data/repositories/sign_in_repo.dart';
-import 'package:chatapp/src/data/repositories/user_repo.dart';
 import 'package:chatapp/src/features/authentication/sign_in/widgets/form_sign_in.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
 import 'package:chatapp/src/widgets/background_image.dart';
@@ -35,10 +33,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SignInBloc(
-        signInRepository: SignInRepository(),
-        userRepository: UserRepository(),
-      ),
+      create: (context) => SignInBloc(),
       child: BlocListener<SignInBloc, SignInState>(
         listener: (context, state) {
           if (state is SignInSuccess) {

@@ -2,8 +2,16 @@ import 'dart:async';
 import 'package:chatapp/src/data/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 
-class ListChatUserRepository {
+abstract class ListChatUserRepository {
+  Stream<List<UserModel>> get streamChatUsers;
+
+  void close();
+}
+
+@Injectable(as: ListChatUserRepository)
+class ListChatUserRepositoryImpl implements ListChatUserRepository {
   final FirebaseFirestore _store = FirebaseFirestore.instance;
   final _authUser = FirebaseAuth.instance.currentUser;
 
@@ -12,9 +20,7 @@ class ListChatUserRepository {
   final StreamController<List<UserModel>> _streamChatUsers =
       StreamController.broadcast();
 
-  Stream<List<UserModel>> get streamChatUsers => _streamChatUsers.stream;
-
-  ListChatUserRepository() {
+  ListChatUserRepositoryImpl() {
     _listenChatUsers = _store
         .collection('users')
         .doc(_authUser?.uid)
@@ -39,8 +45,12 @@ class ListChatUserRepository {
     return listChatUser;
   }
 
+  @override
   void close() {
     _listenChatUsers?.cancel();
     _streamChatUsers.close();
   }
+
+  @override
+  Stream<List<UserModel>> get streamChatUsers => _streamChatUsers.stream;
 }

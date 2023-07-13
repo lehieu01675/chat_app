@@ -1,11 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 
-class ChatUserProvider {
+abstract class ChatUserProvider {
+  Future<bool> addChatUser({required String checkID});
+
+  Future<void> removeChatUser({required String id});
+}
+
+@Injectable(as: ChatUserProvider)
+class ChatUserProviderImpl implements ChatUserProvider {
   final FirebaseFirestore _store = FirebaseFirestore.instance;
   final _authUser = FirebaseAuth.instance.currentUser;
 
-  Future<bool> addChatUser(String checkID) async {
+  @override
+  Future<bool> addChatUser({required String checkID}) async {
     final data = await _store
         .collection('users')
         .where('check_id', isEqualTo: checkID)
@@ -21,10 +30,11 @@ class ChatUserProvider {
     }
   }
 
-  void _setSecondCollection(
-      {required User user,
-      required QuerySnapshot<Map<String, dynamic>> data,
-      required String textCollection}) {
+  void _setSecondCollection({
+    required User user,
+    required QuerySnapshot<Map<String, dynamic>> data,
+    required String textCollection,
+  }) {
     _store
         .collection('users')
         .doc(user.uid)
@@ -33,6 +43,7 @@ class ChatUserProvider {
         .set({});
   }
 
+  @override
   Future<void> removeChatUser({required String id}) async {
     await _store
         .collection('users')

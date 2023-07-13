@@ -1,3 +1,4 @@
+// ignore: unused_import
 import 'package:chatapp/src/data/repositories/phone_repo.dart';
 import 'package:chatapp/src/features/authentication/phong_number/bloc/phone_sign_in_bloc.dart';
 import 'package:chatapp/src/features/authentication/phong_number/widgets/form_phone_number.dart';
@@ -30,8 +31,7 @@ class _PhoneSignInPageState extends State<PhoneSignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) =>
-            PhoneSignInBloc(phoneRepository: PhoneRepository()),
+        create: (context) => PhoneSignInBloc(),
         child: BlocConsumer<PhoneSignInBloc, PhoneSignInState>(
           listener: (context, state) {
             if (state is PhoneSignInSendOTPSuccess) {}

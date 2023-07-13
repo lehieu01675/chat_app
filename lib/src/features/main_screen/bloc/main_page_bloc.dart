@@ -4,20 +4,19 @@ import 'package:chatapp/src/data/repositories/chat_user_repository.dart';
 import 'package:chatapp/src/data/repositories/list_chat_user_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 part 'main_page_event.dart';
 
 part 'main_page_state.dart';
 
 class MainPageBloc extends Bloc<MainScreenEvent, MainScreenState> {
-  ListChatUserRepository listChatUserRepository;
-  ChatUserRepository chatUserRepository;
+  ListChatUserRepository listChatUserRepository =
+      GetIt.I.get<ListChatUserRepository>();
+  ChatUserRepository chatUserRepository = GetIt.I.get<ChatUserRepository>();
   StreamSubscription<List<UserModel>>? _subscriptionChatUsers;
 
-  MainPageBloc({
-    required this.listChatUserRepository,
-    required this.chatUserRepository,
-  }) : super(MainScreenLoading()) {
+  MainPageBloc() : super(MainScreenLoading()) {
     on<MainScreenGetListChatUser>(_getListChatUser);
     on<MainScreenAddChatUser>(_addNewChatUser);
     on<MainScreenRemoveChatUser>(_removeChatUser);
@@ -40,7 +39,7 @@ class MainPageBloc extends Bloc<MainScreenEvent, MainScreenState> {
   Future<void> _addNewChatUser(
       MainScreenAddChatUser event, Emitter<MainScreenState> emit) async {
     try {
-      await chatUserRepository.addChatUser(chatId: event.checkId);
+      await chatUserRepository.addChatUser(checkID: event.checkId);
     } catch (e) {
       emit(MainScreenError(error: e.toString()));
     }
