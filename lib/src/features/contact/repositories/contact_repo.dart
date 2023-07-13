@@ -13,8 +13,7 @@ class ContactRepository {
   final StreamController<List<UserModel>> _streamContactUser =
       StreamController.broadcast();
 
-  Stream<List<UserModel>> get streamContactUser =>
-      _streamContactUser.stream;
+  Stream<List<UserModel>> get streamContactUser => _streamContactUser.stream;
   ContactRepository() {
     final user = _auth.currentUser;
     _listenContactUser = _store

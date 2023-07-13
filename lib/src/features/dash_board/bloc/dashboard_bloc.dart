@@ -25,7 +25,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     }
   }
 
-  /// get c
   Future<void> _getCurrentUser(
       DashboardGetCurrentUser event, Emitter<DashboardState> emit) async {
     try {

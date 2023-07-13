@@ -3,7 +3,7 @@ import 'package:chatapp/src/features/authentication/phong_number/page/phone_numb
 import 'package:chatapp/src/features/authentication/sign_in/page/sign_in_page.dart';
 import 'package:chatapp/src/features/authentication/sign_up/page/sign_up_page.dart';
 import 'package:chatapp/src/features/authentication/verify_OTP/page/verify_otp_screen.dart';
-import 'package:chatapp/src/features/dash_board/view/dash_board_screen.dart';
+import 'package:chatapp/src/features/dash_board/page/dash_board_page.dart';
 import 'package:chatapp/src/lay_out/auth_gate.dart';
 import 'package:go_router/go_router.dart';
 
@@ -44,7 +44,7 @@ class AppRouter {
             ),
             GoRoute(
                 path: 'sign_up',
-                builder: (context, state) => SignUpPage(),
+                builder: (context, state) => const SignUpPage(),
                 routes: [
                   GoRoute(
                     path: 'phone_number',
@@ -53,7 +53,7 @@ class AppRouter {
                 ]),
             GoRoute(
               path: 'dashboard',
-              builder: (context, state) => const DashboardScreen(),
+              builder: (context, state) => const DashboardPage(),
             ),
           ]),
     ],

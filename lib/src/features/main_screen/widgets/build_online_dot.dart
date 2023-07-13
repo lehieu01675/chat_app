@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BuildOnLineDot extends StatelessWidget {
   const BuildOnLineDot({super.key});
@@ -6,8 +7,8 @@ class BuildOnLineDot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 10,
-      height: 10,
+      width: 10.w,
+      height: 10.h,
       decoration: const BoxDecoration(
         shape: BoxShape.circle,
         color: Color.fromARGB(255, 75, 165, 238),

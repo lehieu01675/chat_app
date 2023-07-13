@@ -1,4 +1,4 @@
-part of 'main_screen_bloc.dart';
+part of 'main_page_bloc.dart';
 
 abstract class MainScreenState extends Equatable {
   const MainScreenState();
@@ -9,9 +9,9 @@ abstract class MainScreenState extends Equatable {
 
 class MainScreenLoading extends MainScreenState {}
 
-/// get list chat user of current user
 class MainScreenGetListChatUserSuccess extends MainScreenState {
   final List<UserModel> listChatUser;
+
   const MainScreenGetListChatUserSuccess({required this.listChatUser});
 
   @override
@@ -22,6 +22,7 @@ class MainScreenError extends MainScreenState {
   final String error;
 
   const MainScreenError({required this.error});
+
   @override
   List<Object> get props => [error];
 }

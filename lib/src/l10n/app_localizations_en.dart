@@ -81,4 +81,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sloganVerifyOTP => 'We have sent the otp code. Check the sms and enter the code correctly.';
+
+  @override
+  String get enterID => 'Enter ID';
 }
