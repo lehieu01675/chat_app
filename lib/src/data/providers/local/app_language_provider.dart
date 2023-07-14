@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:chatapp/src/constant/text_cons.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';

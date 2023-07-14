@@ -15,6 +15,7 @@ class MyAppBloc extends Bloc<MyAppEvent, MyAppState> {
     on<MyAppGetDefaultLanguage>(_getDefaultLanguage);
     on<MyAppUpdateLanguage>(_updateLanguage);
     add(MyAppGetDefaultLanguage());
+
   }
 
   Future<void> _updateLanguage(
