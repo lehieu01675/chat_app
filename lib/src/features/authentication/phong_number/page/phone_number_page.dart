@@ -2,7 +2,7 @@ import 'package:chatapp/src/constant/text_cons.dart';
 import 'package:chatapp/src/features/authentication/phong_number/bloc/phone_sign_in_bloc.dart';
 import 'package:chatapp/src/features/authentication/phong_number/widgets/form_phone_number.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
-import 'package:chatapp/src/router/app_pages.dart';
+import 'package:chatapp/src/router/route_paths.dart';
 import 'package:chatapp/src/utils/dialog_util.dart';
 import 'package:chatapp/src/utils/regex_util.dart';
 import 'package:chatapp/src/widgets/background_image.dart';

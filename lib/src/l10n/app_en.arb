@@ -28,6 +28,8 @@
      "sloganForgotPassword": "We have sent you an email. Click to link to reset your password",
      "sloganVerifyOTP": "We have sent the otp code. Check the sms and enter the code correctly.",
      "enterID": "Enter ID",
-     "sentEmail": "Sent email"
+     "sentEmail": "Sent email",
+     "changeLanguage": "Thay đổi ngôn ngữ"
+
 
 }

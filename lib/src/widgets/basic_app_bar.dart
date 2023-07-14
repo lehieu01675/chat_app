@@ -5,7 +5,13 @@ class BasicAppBar extends StatefulWidget implements PreferredSizeWidget {
   final Widget? leading;
   final List<Widget>? action;
   final String? title;
-  const BasicAppBar({super.key, this.leading,this.action, this.title});
+
+  const BasicAppBar({
+    super.key,
+    this.leading,
+    this.action,
+    this.title,
+  });
 
   @override
   State<StatefulWidget> createState() => _BasicAppBarState();
@@ -17,7 +23,7 @@ class BasicAppBar extends StatefulWidget implements PreferredSizeWidget {
 class _BasicAppBarState extends State<BasicAppBar> {
   @override
   Widget build(BuildContext context) {
-    return  AppBar(
+    return AppBar(
       actionsIconTheme: const IconThemeData(
         color: Colors.black,
         size: 40,
@@ -34,5 +40,4 @@ class _BasicAppBarState extends State<BasicAppBar> {
       ),
     );
   }
-  
 }

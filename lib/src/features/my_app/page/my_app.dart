@@ -71,8 +71,8 @@ class _MyAppState extends State<MyApp> {
       ],
       locale: Locale(_languageCode),
       supportedLocales: const [
-        Locale(TextConstant.en), // English
-        Locale(TextConstant.vi), // Spanish
+        Locale(TextConstant.en),
+        Locale(TextConstant.vi),
       ],
       theme: ThemeData.light(),
       title: TextConstant.fChat,

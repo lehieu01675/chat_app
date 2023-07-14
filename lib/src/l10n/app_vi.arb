@@ -28,6 +28,7 @@
    "sloganForgotPassword": "Chúng tôi đã gửi mail tới gmail của bạn. Nhấn vào link trong mail để đổi mật khẩu",
    "sloganVerifyOTP": "Chúng tôi đã gửi mã otp. Kiểm tra sms và điền chính xác mã.",
    "enterID": "Nhập ID",
-    "sentEmail": "Đã gửi email"
+    "sentEmail": "Đã gửi email",
+    "changeLanguage": "Change language"
 
 }
