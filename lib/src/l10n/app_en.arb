@@ -29,7 +29,8 @@
      "sloganVerifyOTP": "We have sent the otp code. Check the sms and enter the code correctly.",
      "enterID": "Enter ID",
      "sentEmail": "Sent email",
-     "changeLanguage": "Thay đổi ngôn ngữ"
+     "changeLanguage": "Thay đổi ngôn ngữ",
+     "delete": "Delete"
 
 
 }

@@ -25,24 +25,30 @@ class _FloatingButtonState extends State<FloatingButton> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: Stack(
-          children: [
-            Positioned(
-              left: widget.offset.dx,
-              top: widget.offset.dy,
-              child: GestureDetector(
-                onPanUpdate: widget.onPanUpdate,
-                child: FloatingActionButton(
-                    backgroundColor: ColorHelper.lightMain,
-                    onPressed: () {
-                      _addChatUserDialog(context);
-                    },
-                    child: const Icon(Icons.add_comment_rounded, size: 30)),
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Stack(
+        children: [
+          Positioned(
+            left: widget.offset.dx,
+            top: widget.offset.dy,
+            child: GestureDetector(
+              onPanUpdate: widget.onPanUpdate,
+              child: FloatingActionButton(
+                backgroundColor: ColorHelper.lightMain,
+                onPressed: () {
+                  _addChatUserDialog(context);
+                },
+                child: Icon(Icons.add_comment_rounded, size: 30.sp),
               ),
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _addChatUser({required BuildContext context, required String checkId}) {
+    context.read<MainPageBloc>().add(MainScreenAddChatUser(checkId: checkId));
   }
 
   void _addChatUserDialog(BuildContext context) {
@@ -68,9 +74,7 @@ class _FloatingButtonState extends State<FloatingButton> {
       btnOkColor: Colors.blue,
       btnOkOnPress: () async {
         if (input.isNotEmpty) {
-          context
-              .read<MainPageBloc>()
-              .add(MainScreenAddChatUser(checkId: input));
+          _addChatUser(context: context, checkId: input);
         }
       },
     ).show();

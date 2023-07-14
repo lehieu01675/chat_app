@@ -90,4 +90,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get changeLanguage => 'Thay đổi ngôn ngữ';
+
+  @override
+  String get delete => 'Delete';
 }

@@ -1,32 +1,50 @@
+import 'package:hive_flutter/adapters.dart';
+part 'user_model.g.dart';
+
+@HiveType(typeId: 1)
 class UserModel {
+  @HiveField(0)
   String image;
+  @HiveField(1)
   final String introduce;
+  @HiveField(2)
   final String name;
+  @HiveField(3)
   final String createdAt;
+  @HiveField(4)
   final String lastActive;
+  @HiveField(5)
   final bool isOnline;
+  @HiveField(6)
   final String checkId;
+  @HiveField(7)
   final String id;
+  @HiveField(8)
   final String email;
+  @HiveField(9)
   String pushToken;
+  @HiveField(10)
   final String phoneNumber;
+  @HiveField(12)
   final String gender;
+  @HiveField(13)
   List<String> listChatID;
 
-  UserModel(
-      {required this.image,
-        required this.listChatID,
-        required this.introduce,
-        required this.name,
-        required this.createdAt,
-        required this.lastActive,
-        required this.isOnline,
-        required this.id,
-        required this.checkId,
-        required this.email,
-        required this.gender,
-        required this.pushToken,
-        required this.phoneNumber});
+  UserModel({
+    required this.image,
+    required this.listChatID,
+    required this.introduce,
+    required this.name,
+    required this.createdAt,
+    required this.lastActive,
+    required this.isOnline,
+    required this.id,
+    required this.checkId,
+    required this.email,
+    required this.gender,
+    required this.pushToken,
+    required this.phoneNumber,
+  });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     final image = json['image'] ?? '';

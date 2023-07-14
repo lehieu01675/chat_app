@@ -30,6 +30,12 @@ class FontTheme {
     fontWeight: FontWeight.w600,
   );
 
+  static TextStyle mineShaft30W500Poppins = GoogleFonts.poppins(
+    color: ColorTheme.mineShaft,
+    fontSize: 30.sp,
+    fontWeight: FontWeight.w500,
+  );
+
   static TextStyle mineShaft15W500RobotoMono = GoogleFonts.robotoMono(
     color: ColorTheme.mineShaft,
     fontSize: 15.sp,

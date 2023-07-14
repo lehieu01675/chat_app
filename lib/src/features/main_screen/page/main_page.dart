@@ -1,3 +1,4 @@
+import 'package:chatapp/src/constant/text_cons.dart';
 import 'package:chatapp/src/data/models/user_model.dart';
 import 'package:chatapp/src/features/authentication/phong_number/widgets/list_chat_card.dart';
 import 'package:chatapp/src/features/main_screen/bloc/main_page_bloc.dart';
@@ -5,11 +6,10 @@ import 'package:chatapp/src/features/main_screen/widgets/floating_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 
 class MainPage extends StatefulWidget {
-  final UserModel currentUser;
-
-  const MainPage({super.key, required this.currentUser});
+  const MainPage({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -18,6 +18,15 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   List<UserModel> _listChatUser = [];
   late Offset _offset = const Offset(300, 600);
+  late UserModel currentUser;
+
+  final _currentUserCache = Hive.box(TextConstant.currentUserPath);
+
+  @override
+  void initState() {
+    super.initState();
+    currentUser = _currentUserCache.get('user');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +44,7 @@ class _MainPageState extends State<MainPage> {
                         padding: EdgeInsets.symmetric(horizontal: 10.w),
                         child: ListChatCardWidget(
                           listChatUser: _listChatUser,
-                          currentUser: widget.currentUser,
+                          currentUser: currentUser,
                         ),
                       ),
                       _buildFloatingButton(),
