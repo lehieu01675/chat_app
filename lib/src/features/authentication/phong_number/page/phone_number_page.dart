@@ -104,7 +104,6 @@ class _PhoneSignInPageState extends State<PhoneSignInPage> {
     required String verificationId,
     required String phoneNumber,
   }) {
-    // TODO: check query parameters
     GoRouter.of(context).go(
       RoutePaths.verifyOtp,
       extra: {

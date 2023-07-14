@@ -1,9 +1,13 @@
+import 'package:chatapp/src/constant/text_cons.dart';
+import 'package:chatapp/src/data/models/user_model.dart';
 import 'package:chatapp/src/di/injection.dart';
 import 'package:chatapp/src/service/cache_server.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'src/features/my_app/page/my_app.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +17,15 @@ Future<void> main() async {
 
   // check the first time open app
   CacheService.firstTime();
+
+  // hive initialization
+  await Hive.initFlutter();
+
+  // Register Adapter
+  Hive.registerAdapter(UserModelAdapter());
+
+  /// open box user-lc
+  await Hive.openBox(TextConstant.currentUserPath);
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setPreferredOrientations([

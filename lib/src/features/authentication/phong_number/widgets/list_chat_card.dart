@@ -18,28 +18,29 @@ class ListChatCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        shrinkWrap: true,
-        reverse: true,
-        itemCount: listChatUser.length,
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          return CustomChatCard(
-            onPressed: (context) {
-              context
-                  .read<MainPageBloc>()
-                  .add(MainScreenRemoveChatUser(id: listChatUser[index].id));
-            },
-            trailing: listChatUser[index].isOnline
-                ? const BuildOnLineDot()
-                : const Text(''),
-            subTitle: Text(
-              listChatUser[index].checkId,
-              maxLines: 1,
-            ),
-            isChatPage: true,
-            guestUser: listChatUser[index],
-            currentUser: currentUser,
-          );
-        });
+      shrinkWrap: true,
+      reverse: true,
+      itemCount: listChatUser.length,
+      physics: const BouncingScrollPhysics(),
+      itemBuilder: (context, index) {
+        return CustomChatCard(
+          onPressed: (context) {
+            context
+                .read<MainPageBloc>()
+                .add(MainScreenRemoveChatUser(id: listChatUser[index].id));
+          },
+          trailing: listChatUser[index].isOnline
+              ? const BuildOnLineDot()
+              : const Text(''),
+          subTitle: Text(
+            listChatUser[index].checkId,
+            maxLines: 1,
+          ),
+          isChatPage: true,
+          guestUser: listChatUser[index],
+          currentUser: currentUser,
+        );
+      },
+    );
   }
 }

@@ -68,8 +68,7 @@ class _BuildAppBarChatScreenState extends State<BuildAppBarChatScreen> {
       leadingWidth: 50,
       title: InkWell(
         onTap: () {
-          TransitionHelper.nextScreen(
-              context, ProfilePage(currentUser: widget.guestUser));
+          TransitionHelper.nextScreen(context, const ProfilePage());
         },
         child: Row(children: [
           Container(

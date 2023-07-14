@@ -18,7 +18,12 @@ class TextConstant {
   static const String phoneNumberPath = "phone_number";
   static const String verifyOtpPath = "verify_OTP";
   static const String verificationID = "verificationId";
+  static const String currentUser = "currentUser";
   static const String phoneNumber = "phoneNumber";
   static const String languageCode = "languageCode";
   static const String isFirstTime = "isFirstTime";
+  static const String mainPagePath = "main_page";
+  static const String contactPagePath = "contact_page";
+  static const String profilePagePath = "profile_page";
+  static const String currentUserPath = "current_user";
 }

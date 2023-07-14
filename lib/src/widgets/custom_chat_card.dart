@@ -18,14 +18,15 @@ class CustomChatCard extends StatelessWidget {
   final bool isChatPage;
   final void Function(BuildContext)? onPressed;
 
-  const CustomChatCard(
-      {super.key,
-      required this.guestUser,
-      required this.currentUser,
-      this.trailing,
-      this.subTitle,
-      required this.isChatPage,
-      this.onPressed});
+  const CustomChatCard({
+    super.key,
+    required this.guestUser,
+    required this.currentUser,
+    this.trailing,
+    this.subTitle,
+    required this.isChatPage,
+    this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +84,8 @@ class CustomChatCard extends StatelessWidget {
                 // show profile page of chat user
                 onTap: () => showDialog(
                     context: context,
-                    builder: (_) => ProfilePage(currentUser: guestUser)),
+                    // TODO: parameter is not current user
+                    builder: (_) => const ProfilePage()),
 
                 // show avatar
                 child: ClipRRect(

@@ -266,6 +266,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Thay đổi ngôn ngữ'**
   String get changeLanguage;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

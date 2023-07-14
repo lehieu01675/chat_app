@@ -1,3 +1,4 @@
+import 'package:chatapp/src/constant/text_cons.dart';
 import 'package:chatapp/src/data/models/user_model.dart';
 import 'package:chatapp/src/features/contact/bloc/contact_bloc.dart';
 import 'package:chatapp/src/features/contact/widgets/search_bar.dart';
@@ -8,11 +9,11 @@ import 'package:chatapp/src/widgets/custom_chat_card.dart';
 import 'package:chatapp/src/features/chat/view/chat_screen.dart';
 import 'package:chatapp/src/features/contact/repositories/contact_repo.dart';
 import 'package:chatapp/src/helper/transition_screen_helper.dart';
+import 'package:hive/hive.dart';
 
 class ContactPage extends StatefulWidget {
-  final UserModel currentUser;
 
-  const ContactPage({super.key, required this.currentUser});
+  const ContactPage({super.key});
 
   @override
   State<ContactPage> createState() => _ContactPageState();
@@ -26,6 +27,16 @@ class _ContactPageState extends State<ContactPage> {
   final String _notiWhenNoChatuser =
       'Let us take care of your relationships 😘';
 
+  late UserModel currentUser;
+
+  final _currentUserCache = Hive.box(TextConstant.currentUserPath);
+
+
+  @override
+  void initState() {
+    super.initState();
+    currentUser = _currentUserCache.get('user');
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +73,7 @@ class _ContactPageState extends State<ContactPage> {
                                       id: _listContactUser[index].id);
                                 },
                                 isChatPage: false,
-                                currentUser: widget.currentUser,
+                                currentUser: currentUser,
                                 guestUser: _isSearch
                                     ? _searchListContactUser[index]
                                     : _listContactUser[index],
@@ -81,7 +92,7 @@ class _ContactPageState extends State<ContactPage> {
                                     TransitionHelper.nextScreen(
                                         context,
                                         ChatScreen(
-                                            currentUser: widget.currentUser,
+                                            currentUser: currentUser,
                                             guestUser: _isSearch
                                                 ? _searchListContactUser[index]
                                                 : _listContactUser[index]));

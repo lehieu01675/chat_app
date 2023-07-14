@@ -13,10 +13,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:hive/hive.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:chatapp/src/widgets/basic_app_bar.dart';
 import 'package:chatapp/src/features/profile/view/profile_screen.dart';
-import 'package:chatapp/src/helper/color_helper.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -42,6 +42,7 @@ class _DashboardPageState extends State<DashboardPage> {
       phoneNumber: '');
 
   int _currentIndex = 1;
+  final _currentUserCache = Hive.box(TextConstant.currentUserPath);
 
   @override
   void initState() {
@@ -71,10 +72,11 @@ class _DashboardPageState extends State<DashboardPage> {
         builder: (context, state) {
           if (state is DashboardGetCurrentUserSuccess) {
             currentUser = state.currentUser;
+            _currentUserCache.put('user', currentUser);
             final tab = [
-              ContactPage(currentUser: currentUser),
-              MainPage(currentUser: currentUser),
-              ProfilePage(currentUser: currentUser)
+              const ContactPage(),
+              const MainPage(),
+              const ProfilePage()
             ];
             return tab[_currentIndex];
           }
@@ -138,15 +140,15 @@ class _DashboardPageState extends State<DashboardPage> {
               GButton(
                   icon: LineIcons.peopleCarry,
                   text: TextConstant.contact,
-                  iconColor: ColorHelper.lightIconBottomNavigationBar),
+                  iconColor: ColorTheme.white),
               GButton(
                   icon: LineIcons.facebookMessenger,
                   text: TextConstant.chat,
-                  iconColor: ColorHelper.lightIconBottomNavigationBar),
+                  iconColor: ColorTheme.white),
               GButton(
                   icon: LineIcons.userCircle,
                   text: TextConstant.profile,
-                  iconColor: ColorHelper.lightIconBottomNavigationBar),
+                  iconColor: ColorTheme.white),
             ],
             selectedIndex: _currentIndex,
             onTabChange: (index) {

@@ -1,5 +1,7 @@
+import 'package:chatapp/src/constant/text_cons.dart';
+import 'package:chatapp/src/theme/font_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:chatapp/src/helper/text_style_helper.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BasicAppBar extends StatefulWidget implements PreferredSizeWidget {
   final Widget? leading;
@@ -17,26 +19,22 @@ class BasicAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<StatefulWidget> createState() => _BasicAppBarState();
 
   @override
-  Size get preferredSize => const Size.fromHeight(50);
+  Size get preferredSize => Size.fromHeight(80.h);
 }
 
 class _BasicAppBarState extends State<BasicAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      actionsIconTheme: const IconThemeData(
-        color: Colors.black,
-        size: 40,
-      ),
       leading: widget.leading,
       actions: widget.action,
-      toolbarHeight: 60,
+      toolbarHeight: 100.h,
       elevation: 0,
       backgroundColor: Colors.transparent,
       centerTitle: true,
       title: Text(
-        widget.title ?? 'FChat',
-        style: TextStyleHelper.titleAppbar,
+        widget.title ?? TextConstant.fChat,
+        style: FontTheme.mineShaft30W500Poppins,
       ),
     );
   }
