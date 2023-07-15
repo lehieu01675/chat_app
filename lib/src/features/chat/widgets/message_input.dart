@@ -1,13 +1,17 @@
 import 'dart:io';
 import 'package:chatapp/src/data/models/user_model.dart';
+import 'package:chatapp/src/l10n/app_localizations.dart';
+import 'package:chatapp/src/theme/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:chatapp/src/widgets/custom_text_form_field.dart';
 import 'package:chatapp/src/features/chat/bloc/chat_bloc.dart';
 import 'package:chatapp/src/utils/dialog_util.dart';
 
 import 'package:chatapp/src/data/models/message_model.dart';
+import 'package:lottie/lottie.dart';
 
 class MessageInput extends StatefulWidget {
   final TextEditingController messageController;
@@ -15,12 +19,13 @@ class MessageInput extends StatefulWidget {
   final UserModel guestUser;
   final List<MessageModel> listMessage;
 
-  const MessageInput(
-      {super.key,
-      required this.messageController,
-      required this.currentUser,
-      required this.guestUser,
-      required this.listMessage});
+  const MessageInput({
+    super.key,
+    required this.messageController,
+    required this.currentUser,
+    required this.guestUser,
+    required this.listMessage,
+  });
 
   @override
   State<MessageInput> createState() => _MessageInputState();
@@ -36,21 +41,24 @@ class _MessageInputState extends State<MessageInput> {
       children: [
         InkWell(
           onTap: () async {
-            _getImageFromDeviceNoti(context);
+            _getImageFromDeviceDialog(context);
           },
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Center(
-                // child: Lottie.asset(ImageHelper.gallery,
-                //     fit: BoxFit.cover, width: 55, height: 55),
-                ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            child: Lottie.asset(
+              Assets.lottie.gallery.path,
+              fit: BoxFit.cover,
+              width: 55,
+              height: 55,
+            ),
           ),
         ),
         Expanded(
           child: CustomTextFormField(
-              controller: widget.messageController,
-              keyboardType: TextInputType.multiline,
-              hintText: ''),
+            controller: widget.messageController,
+            keyboardType: TextInputType.multiline,
+            hintText: '',
+          ),
         ),
         InkWell(
           onTap: () {
@@ -69,31 +77,31 @@ class _MessageInputState extends State<MessageInput> {
             }
             widget.messageController.text = '';
           },
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Text('data'),
-            // Lottie.asset(ImageHelper.send,
-            //     fit: BoxFit.cover, width: 55, height: 55),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
+            child: Lottie.asset(
+              Assets.lottie.send.path,
+              fit: BoxFit.cover,
+              width: 55,
+              height: 55,
+            ),
           ),
         ),
       ],
     );
   }
 
-  void _getImageFromDeviceNoti(BuildContext context) {
+  void _getImageFromDeviceDialog(BuildContext context) {
     DialogUtil.showBothOkAndCancel(
-        body: 'Select a photo in',
-        cancelIcon: Icons.camera,
-        cancelText: 'Camera',
-        context: context,
-        okIcon: Icons.image,
-        okText: 'Gallery',
-        okOnPress: () {
-          _getImageFromGallery();
-        },
-        cancelOnPress: () {
-          _getImageFromCamera();
-        });
+      body: AppLocalizations.of(context)!.selectPhotoFrom,
+      cancelIcon: Icons.camera,
+      cancelText: 'Camera',
+      context: context,
+      okIcon: Icons.image,
+      okText: AppLocalizations.of(context)!.gallery,
+      okOnPress: () => _getImageFromGallery(),
+      cancelOnPress: () => _getImageFromCamera(),
+    );
   }
 
   void _getImageFromCamera() async {
@@ -125,21 +133,23 @@ class _MessageInputState extends State<MessageInput> {
         currentUser: currentUser, guestUser: guestUser, file: file));
   }
 
-  void _sendFirstMessage(
-      {required UserModel guestUser,
-      required UserModel currentUser,
-      required String msg,
-      required Type type}) async {
+  void _sendFirstMessage({
+    required UserModel guestUser,
+    required UserModel currentUser,
+    required String msg,
+    required Type type,
+  }) async {
     context
         .read<ChatBloc>()
         .add(ChatSendFirstMessage(guestUser, currentUser, msg, type));
   }
 
-  void _sendMessage(
-      {required UserModel guestUser,
-      required UserModel currentUser,
-      required String msg,
-      required Type type}) async {
+  void _sendMessage({
+    required UserModel guestUser,
+    required UserModel currentUser,
+    required String msg,
+    required Type type,
+  }) async {
     context
         .read<ChatBloc>()
         .add(ChatSendMessage(guestUser, currentUser, msg, type));

@@ -111,4 +111,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get searchByIdOrName => 'Search by ID nor name';
+
+  @override
+  String get selectPhotoFrom => 'Select photo from';
+
+  @override
+  String get gallery => 'Gallery';
 }

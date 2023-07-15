@@ -308,6 +308,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search by ID nor name'**
   String get searchByIdOrName;
+
+  /// No description provided for @selectPhotoFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Select photo from'**
+  String get selectPhotoFrom;
+
+  /// No description provided for @gallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get gallery;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

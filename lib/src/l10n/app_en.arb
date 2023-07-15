@@ -36,5 +36,7 @@
      "update": "Update",
      "updateSuccess": "Update success",
      "updateFailed": "Update failed",
-     "searchByIdOrName": "Search by ID nor name"
+     "searchByIdOrName": "Search by ID nor name",
+     "selectPhotoFrom": "Select photo from",
+     "gallery": "Gallery"
 }
