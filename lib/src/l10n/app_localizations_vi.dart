@@ -108,4 +108,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get updateFailed => 'Cập nhật thất bại';
+
+  @override
+  String get searchByIdOrName => 'Tìm kiếm qua ID hoặc tên';
 }

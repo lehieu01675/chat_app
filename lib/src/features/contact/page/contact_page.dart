@@ -7,7 +7,6 @@ import 'package:chatapp/src/router/route_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chatapp/src/widgets/custom_chat_card.dart';
-import 'package:chatapp/src/features/contact/repositories/contact_repo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 
@@ -39,33 +38,34 @@ class _ContactPageState extends State<ContactPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: BlocProvider(
-      create: (context) => ContactBloc(contactRepository: ContactRepository()),
-      child: BlocBuilder<ContactBloc, ContactState>(
-        builder: (context, state) {
-          if (state is ContactLoadChatUserSuccess) {
-            _listContactUser = state.listContactUser;
-            return (_listContactUser.isEmpty)
-                ? Center(
-                    child: Text(_notiWhenNoChatuser,
-                        textAlign: TextAlign.center, maxLines: 2))
-                : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(children: [
-                      SearchBarWidget(
-                        searchController: _searchController,
-                        onSearch: _search,
-                      ),
-                      ListView.builder(
-                          shrinkWrap: true,
-                          reverse: true,
-                          itemCount: _isSearch
-                              ? _searchListContactUser.length
-                              : _listContactUser.length,
-                          physics: const BouncingScrollPhysics(
-                              parent: AlwaysScrollableScrollPhysics()),
-                          itemBuilder: (context, index) {
-                            return CustomChatCard(
+      body: BlocProvider(
+        create: (context) => ContactBloc(),
+        child: BlocBuilder<ContactBloc, ContactState>(
+          builder: (context, state) {
+            if (state is ContactLoadChatUserSuccess) {
+              _listContactUser = state.listContactUser;
+              return (_listContactUser.isEmpty)
+                  ? Center(
+                      child: Text(_notiWhenNoChatuser,
+                          textAlign: TextAlign.center, maxLines: 2))
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        children: [
+                          SearchBarWidget(
+                            searchController: _searchController,
+                            onSearch: _search,
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            reverse: true,
+                            itemCount: _isSearch
+                                ? _searchListContactUser.length
+                                : _listContactUser.length,
+                            physics: const BouncingScrollPhysics(
+                                parent: AlwaysScrollableScrollPhysics()),
+                            itemBuilder: (context, index) {
+                              return CustomChatCard(
                                 onPressed: (context) {
                                   _removeUser(
                                       context: context,
@@ -92,15 +92,19 @@ class _ContactPageState extends State<ContactPage> {
                                   },
                                   icon:
                                       const Icon(Icons.chat_outlined, size: 30),
-                                ));
-                          }),
-                    ]),
-                  );
-          }
-          return const SizedBox();
-        },
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+            }
+            return const SizedBox();
+          },
+        ),
       ),
-    ));
+    );
   }
 
   Future<void> _addChatUser(

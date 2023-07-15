@@ -1,3 +1,4 @@
+import 'package:chatapp/src/l10n/app_localizations.dart';
 import 'package:chatapp/src/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +24,7 @@ class SearchBarWidget extends StatelessWidget {
         prefixIcon: const Icon(Icons.search_outlined),
         controller: searchController,
         keyboardType: TextInputType.text,
-        hintText: 'Search by ID',
+        hintText: AppLocalizations.of(context)!.searchByIdOrName,
         onChanged: (value) => onSearch,
       ),
     );
