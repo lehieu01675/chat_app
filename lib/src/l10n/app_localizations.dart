@@ -302,6 +302,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Update failed'**
   String get updateFailed;
+
+  /// No description provided for @searchByIdOrName.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by ID nor name'**
+  String get searchByIdOrName;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

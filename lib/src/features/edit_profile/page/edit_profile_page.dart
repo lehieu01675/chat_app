@@ -7,14 +7,12 @@ import 'package:chatapp/src/features/edit_profile/widgets/avatar_edit_profile.da
 import 'package:chatapp/src/features/edit_profile/widgets/form_edit_profile.dart';
 import 'package:chatapp/src/features/profile/widgets/background_profile_page.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
-import 'package:chatapp/src/router/route_paths.dart';
 import 'package:chatapp/src/widgets/custom_arrow_back.dart';
 import 'package:chatapp/src/widgets/custom_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:chatapp/src/widgets/custom_button.dart';

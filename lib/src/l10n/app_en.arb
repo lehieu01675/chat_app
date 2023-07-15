@@ -35,5 +35,6 @@
      "signOutFailed": "Sign out failed",
      "update": "Update",
      "updateSuccess": "Update success",
-     "updateFailed": "Update failed"
+     "updateFailed": "Update failed",
+     "searchByIdOrName": "Search by ID nor name"
 }

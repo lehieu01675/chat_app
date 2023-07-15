@@ -35,5 +35,6 @@
     "signOutFailed": "Đăng kí thất bại",
     "update": "Cập nhật",
     "updateSuccess": "Cập nhật thành công",
-    "updateFailed": "Cập nhật thất bại"
+    "updateFailed": "Cập nhật thất bại",
+    "searchByIdOrName": "Tìm kiếm qua ID hoặc tên"
 }

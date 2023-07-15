@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:chatapp/src/constant/text_cons.dart';
 import 'package:chatapp/src/data/models/user_model.dart';
-import 'package:chatapp/src/features/contact/view/contact_page.dart';
+import 'package:chatapp/src/features/contact/page/contact_page.dart';
 import 'package:chatapp/src/features/dash_board/bloc/dashboard_bloc.dart';
 import 'package:chatapp/src/features/main_screen/page/main_page.dart';
 import 'package:chatapp/src/features/profile/page/profile_page.dart';

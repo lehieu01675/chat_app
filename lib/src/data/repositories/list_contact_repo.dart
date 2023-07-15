@@ -1,11 +1,18 @@
 import 'dart:async';
 
 import 'package:chatapp/src/data/models/user_model.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 
-class ContactRepository {
+abstract class ListContactRepository {
+  Stream<List<UserModel>> get streamContactUser;
+
+  void close();
+}
+
+@Injectable(as: ListContactRepository)
+class ListContactRepositoryImpl implements ListContactRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _store = FirebaseFirestore.instance;
   StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? _listenContactUser;
@@ -13,8 +20,10 @@ class ContactRepository {
   final StreamController<List<UserModel>> _streamContactUser =
       StreamController.broadcast();
 
+  @override
   Stream<List<UserModel>> get streamContactUser => _streamContactUser.stream;
-  ContactRepository() {
+
+  ListContactRepositoryImpl() {
     final user = _auth.currentUser;
     _listenContactUser = _store
         .collection('users')
@@ -26,6 +35,7 @@ class ContactRepository {
       _streamContactUser.add(listChatUser);
     });
   }
+
   Future<List<UserModel>> _loadRawData(
       QuerySnapshot<Map<String, dynamic>> chatIdSnapshot) async {
     final listChatId = chatIdSnapshot.docs.map((doc) => doc.id).toList();
@@ -39,42 +49,7 @@ class ContactRepository {
     return listChatUser;
   }
 
-  Future<void> deleteContactUser({required String id}) async {
-    var user = _auth.currentUser;
-    await _deleteSecondCollection(user, id, 'contacts');
-    await _deleteSecondCollection(user, id, 'chat_users');
-  }
-
-  Future<void> _deleteSecondCollection(
-      User? user, String id, String textCollection) async {
-    await _store
-        .collection('users')
-        .doc(user!.uid)
-        .collection(textCollection)
-        .doc(id)
-        .delete();
-  }
-
-  Future<bool> addChatUser(String checkID) async {
-    var user = _auth.currentUser;
-    final data = await _store
-        .collection('users')
-        .where('check_id', isEqualTo: checkID)
-        .get();
-    if (data.docs.isNotEmpty && data.docs.first.id != user!.uid) {
-      _store
-          .collection('users')
-          .doc(user.uid)
-          .collection('chat_users')
-          .doc(data.docs.first.id)
-          .set({});
-
-      return true;
-    } else {
-      return false;
-    }
-  }
-
+  @override
   void close() {
     _listenContactUser?.cancel();
     _streamContactUser.close();

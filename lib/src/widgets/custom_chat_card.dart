@@ -19,8 +19,6 @@ class CustomChatCard extends StatelessWidget {
   final bool isChatPage;
   final void Function(BuildContext)? onPressed;
 
-  final _currentUserCache = Hive.box(TextConstant.currentUserPath);
-
   CustomChatCard({
     super.key,
     required this.guestUser,
@@ -31,9 +29,10 @@ class CustomChatCard extends StatelessWidget {
     this.onPressed,
   });
 
+  final _currentUserCache = Hive.box(TextConstant.currentUserPath);
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Slidable(
         key: const ValueKey(0),
         endActionPane: ActionPane(
@@ -42,7 +41,7 @@ class CustomChatCard extends StatelessWidget {
             _buildSlidableAction(context),
           ],
         ),
-        child: _card(context: context, size: size));
+        child: _card(context: context));
   }
 
   Widget _buildSlidableAction(BuildContext context) {
@@ -57,7 +56,7 @@ class CustomChatCard extends StatelessWidget {
     );
   }
 
-  Widget _card({required BuildContext context, required Size size}) {
+  Widget _card({required BuildContext context}) {
     return Card(
       elevation: 5,
       margin: const EdgeInsets.symmetric(vertical: 5),
@@ -70,18 +69,20 @@ class CustomChatCard extends StatelessWidget {
 
           isChatPage ? context.go(RoutePaths.chatPage) : () {};
         },
-        child: ListTile(
-          subtitle: subTitle,
-          title: Text(
-            guestUser.name,
-            style: const TextStyle(fontSize: 20),
-            maxLines: 1,
+        child: SizedBox(
+          child: ListTile(
+            subtitle: subTitle,
+            title: Text(
+              guestUser.name,
+              style: const TextStyle(fontSize: 20),
+              maxLines: 1,
+            ),
+            trailing: trailing,
+            leading: InkWell(
+                onTap: () => showDialog(
+                    context: context, builder: (_) => const ProfilePage()),
+                child: CustomAvatar(imageUrl: guestUser.image)),
           ),
-          trailing: trailing,
-          leading: InkWell(
-              onTap: () => showDialog(
-                  context: context, builder: (_) => const ProfilePage()),
-              child: CustomAvatar(imageUrl: guestUser.image)),
         ),
       ),
     );

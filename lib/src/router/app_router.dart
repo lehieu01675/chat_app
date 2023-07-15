@@ -5,7 +5,7 @@ import 'package:chatapp/src/features/authentication/sign_in/page/sign_in_page.da
 import 'package:chatapp/src/features/authentication/sign_up/page/sign_up_page.dart';
 import 'package:chatapp/src/features/authentication/verify_OTP/page/verify_otp_screen.dart';
 import 'package:chatapp/src/features/chat/page/chat_screen.dart';
-import 'package:chatapp/src/features/contact/view/contact_page.dart';
+import 'package:chatapp/src/features/contact/page/contact_page.dart';
 import 'package:chatapp/src/features/dash_board/page/dash_board_page.dart';
 import 'package:chatapp/src/features/edit_profile/page/edit_profile_page.dart';
 import 'package:chatapp/src/features/main_screen/page/main_page.dart';
