@@ -3,16 +3,15 @@ import 'package:chatapp/src/data/models/user_model.dart';
 import 'package:chatapp/src/features/contact/bloc/contact_bloc.dart';
 import 'package:chatapp/src/features/contact/widgets/search_bar.dart';
 import 'package:chatapp/src/features/contact/widgets/show_id.dart';
+import 'package:chatapp/src/router/route_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chatapp/src/widgets/custom_chat_card.dart';
-import 'package:chatapp/src/features/chat/view/chat_screen.dart';
 import 'package:chatapp/src/features/contact/repositories/contact_repo.dart';
-import 'package:chatapp/src/helper/transition_screen_helper.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 
 class ContactPage extends StatefulWidget {
-
   const ContactPage({super.key});
 
   @override
@@ -31,12 +30,12 @@ class _ContactPageState extends State<ContactPage> {
 
   final _currentUserCache = Hive.box(TextConstant.currentUserPath);
 
-
   @override
   void initState() {
     super.initState();
     currentUser = _currentUserCache.get('user');
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,13 +88,7 @@ class _ContactPageState extends State<ContactPage> {
                                         context: context,
                                         checkId:
                                             _listContactUser[index].checkId);
-                                    TransitionHelper.nextScreen(
-                                        context,
-                                        ChatScreen(
-                                            currentUser: currentUser,
-                                            guestUser: _isSearch
-                                                ? _searchListContactUser[index]
-                                                : _listContactUser[index]));
+                                    context.go(RoutePaths.chatPage);
                                   },
                                   icon:
                                       const Icon(Icons.chat_outlined, size: 30),

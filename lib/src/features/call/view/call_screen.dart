@@ -8,7 +8,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart';
 import 'package:chatapp/src/helper/text_helper.dart';
 
-import 'package:chatapp/src/models/message_model.dart';
+import 'package:chatapp/src/data/models/message_model.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class CallScreen extends StatefulWidget {

@@ -1,67 +1,66 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:chatapp/src/data/models/user_model.dart';
+import 'package:chatapp/src/helper/text_helper.dart';
+import 'package:chatapp/src/data/models/message_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart';
-import 'package:chatapp/src/helper/text_helper.dart';
+import 'package:injectable/injectable.dart';
 
-import 'package:chatapp/src/models/message_model.dart';
+abstract class MessageProvider {
+  Future<void> sendFirstMessage({
+    required UserModel guestUser,
+    required UserModel currentUser,
+    required String msg,
+    required Type type,
+  });
 
-class ChatRepository {
+  String getConversationID({required String guestId});
+
+  Future<void> sendMessage({
+    required UserModel guestUser,
+    required UserModel currentUser,
+    required String msg,
+    required Type type,
+  });
+
+  Future<void> pushMessageNotification({
+    required UserModel currentUser,
+    required UserModel guestUser,
+    required String msg,
+  });
+
+  Future<void> sendImageMessage({
+    required UserModel guestUser,
+    required UserModel currentUser,
+    required File file,
+  });
+
+  Future<void> deleteMessage({required MessageModel message});
+}
+
+@Injectable(as: MessageProvider)
+class MessageProviderImpl implements MessageProvider {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _store = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
-  StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? _listenMessage;
-  final StreamController<List<MessageModel>> _streamMessage =
-  StreamController.broadcast();
-
-  Stream<List<MessageModel>> get streamMessage => _streamMessage.stream;
-
-  static String? conversationId;
-
-  // hash
-  ChatRepository() {
-    _listenMessage = _store
-        .collection('chats')
-        .doc(getConversationID(guestId: conversationId!))
-        .collection('messages/')
-        .orderBy('sent', descending: true)
-        .snapshots()
-        .listen((messageSnapshot) async {
-      List<MessageModel> listMessage = _loadRawData(messageSnapshot);
-      _streamMessage.add(listMessage);
-    });
-  }
-
-  List<MessageModel> _loadRawData(
-      QuerySnapshot<Map<String, dynamic>> messageSnapshot) {
-    final listMessage = messageSnapshot.docs
-        .map((doc) => MessageModel.fromJson(doc.data()))
-        .toList();
-    return listMessage;
-  }
-
-  void close() {
-    _listenMessage?.cancel();
-    _streamMessage.close();
-  }
-
-  Future<void> sendFirstMessage({required UserModel guestUser,
+  @override
+  Future<void> sendFirstMessage({
+    required UserModel guestUser,
     required UserModel currentUser,
     required String msg,
-    required Type type}) async {
+    required Type type,
+  }) async {
     final user = _auth.currentUser;
     await _store
         .collection('users')
         .doc(guestUser.id)
         .collection('chat_users')
         .doc(user!.uid)
-        .set({}).then((value) =>
-        sendMessage(
+        .set({}).then((value) => sendMessage(
             guestUser: guestUser,
             msg: msg,
             type: type,
@@ -74,23 +73,26 @@ class ChatRepository {
         .doc(currentUser.id)
         .set({});
 
-
     List<String> listChatID = currentUser.listChatID;
-    for(String s in listChatID) {
-      if(s == getConversationID(guestId: guestUser.id)) {
+    for (String s in listChatID) {
+      if (s == getConversationID(guestId: guestUser.id)) {
         listChatID.remove(s);
       }
     }
     listChatID.add(getConversationID(guestId: guestUser.id));
-    _store.collection('users').doc(currentUser.id).update({'listChatID': listChatID});
+    _store
+        .collection('users')
+        .doc(currentUser.id)
+        .update({'listChatID': listChatID});
+  }
 
-  } // hashcode
-
-  Future<void> sendMessage(
-      {required UserModel guestUser,
-      required UserModel currentUser,
-      required String msg,
-      required Type type}) async {
+  @override
+  Future<void> sendMessage({
+    required UserModel guestUser,
+    required UserModel currentUser,
+    required String msg,
+    required Type type,
+  }) async {
     final user = _auth.currentUser;
     final time = DateTime.now().millisecondsSinceEpoch.toString();
 
@@ -116,11 +118,9 @@ class ChatRepository {
     await ref.doc(time).set(message.toJson()).then((value) =>
         pushMessageNotification(
             currentUser: currentUser, guestUser: guestUser, msg: msg));
-
-
   }
 
-  // get conversation'id
+  @override
   String getConversationID({required String guestId}) {
     var user = _auth.currentUser;
     // because conversationId is make from guestId and currentId but
@@ -130,15 +130,18 @@ class ChatRepository {
         : '${guestId}_${user.uid}';
   }
 
-  Future<void> pushMessageNotification(
-      {required UserModel currentUser,
-      required UserModel guestUser,
-      required String msg}) async {
+  @override
+  Future<void> pushMessageNotification({
+    required UserModel currentUser,
+    required UserModel guestUser,
+    required String msg,
+  }) async {
     try {
       final body = {
         "to": guestUser.pushToken,
         "notification": {
-          "title": 'New message from ${currentUser.name}', //our name should be send
+          "title":
+              'New message from ${currentUser.name}', //our name should be send
           "body": msg,
           "android_channel_id": "chats"
         },
@@ -156,10 +159,12 @@ class ChatRepository {
     }
   }
 
-  Future<void> sendImageMessage(
-      {required UserModel guestUser,
-      required UserModel currentUser,
-      required File file}) async {
+  @override
+  Future<void> sendImageMessage({
+    required UserModel guestUser,
+    required UserModel currentUser,
+    required File file,
+  }) async {
     //getting image file extension
     final ext = file.path.split('.').last;
 
@@ -181,8 +186,8 @@ class ChatRepository {
         type: Type.image);
   }
 
-  // delete message
-  Future<void> deleteMessage(MessageModel message) async {
+  @override
+  Future<void> deleteMessage({required MessageModel message}) async {
     await _store
         .collection(
             'chats/${getConversationID(guestId: message.toId)}/messages/')

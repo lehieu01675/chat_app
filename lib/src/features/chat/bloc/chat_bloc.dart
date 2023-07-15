@@ -2,22 +2,28 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:chatapp/src/data/models/user_model.dart';
+import 'package:chatapp/src/data/repositories/list_message_repo.dart';
+import 'package:chatapp/src/data/repositories/message_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:chatapp/src/features/chat/repositories/chat_repo.dart';
-
-import 'package:chatapp/src/models/message_model.dart';
+import 'package:chatapp/src/data/models/message_model.dart';
+import 'package:get_it/get_it.dart';
 
 part 'chat_event.dart';
+
 part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
-  ChatRepository chatRepository;
+  ListMessageRepository listMessageRepository =
+      GetIt.I.get<ListMessageRepository>();
+  MessageRepository messageRepository = GetIt.I.get<MessageRepository>();
   StreamSubscription<List<MessageModel>>? _subscriptionMessage;
-  ChatBloc({required this.chatRepository})
+
+  ChatBloc()
       : super(const ChatState(
-            listMessage: [], status: ChatStatus.initial)) {
-    ////
+          listMessage: [],
+          status: ChatStatus.initial,
+        )) {
     on<ChatSendFirstMessage>(_sendFirstMessage);
     on<ChatSendMessage>(_sendMessage);
     on<ChatGetListMessage>(_getListMessage);
@@ -25,18 +31,16 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<ChatDeleteMessage>(_deleteMessage);
 
     // listen Chat from firebase
-    _subscriptionMessage = chatRepository.streamMessage.listen((event) {
+    _subscriptionMessage = listMessageRepository.streamMessage.listen((event) {
       add(ChatGetListMessage(listMessage: event));
     });
   }
-
-  /// send image message
   Future<void> _sendImageMessage(
       ChatSendImageMessage event, Emitter<ChatState> emit) async {
     try {
       emit(ChatState(
           status: ChatStatus.imageLoading, listMessage: state.listMessage));
-      await chatRepository.sendImageMessage(
+      await messageRepository.sendImageMessage(
           guestUser: event.guestUser,
           currentUser: event.currentUser,
           file: event.file);
@@ -49,16 +53,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
   }
 
-  /// delete message
   Future<void> _deleteMessage(
       ChatDeleteMessage event, Emitter<ChatState> emit) async {
     try {
-      await chatRepository.deleteMessage(event.message);
+      await messageRepository.deleteMessage(message: event.message);
     } catch (e) {
       throw Exception(e);
     }
   }
-
 
   /// get list message
   FutureOr<void> _getListMessage(
@@ -72,11 +74,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           status: ChatStatus.failure, listMessage: event.listMessage));
     }
   }
-  /// send first message
+
   Future<void> _sendFirstMessage(
       ChatSendFirstMessage event, Emitter<ChatState> emit) async {
     try {
-      await chatRepository.sendFirstMessage(
+      await messageRepository.sendFirstMessage(
           guestUser: event.guestUser,
           currentUser: event.currentUser,
           msg: event.message,
@@ -86,11 +88,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
   }
 
-  /// send message
   Future<void> _sendMessage(
       ChatSendMessage event, Emitter<ChatState> emit) async {
     try {
-      await chatRepository.sendMessage(
+      await messageRepository.sendMessage(
           guestUser: event.guestUser,
           currentUser: event.currentUser,
           msg: event.msg,
@@ -103,7 +104,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   @override
   Future<void> close() {
     _subscriptionMessage?.cancel();
-    chatRepository.close();
+    listMessageRepository.close();
     return super.close();
   }
 }

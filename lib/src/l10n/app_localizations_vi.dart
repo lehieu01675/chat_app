@@ -93,4 +93,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get delete => 'Xóa';
+
+  @override
+  String get copiedId => 'Đã sao chép ID';
+
+  @override
+  String get signOutFailed => 'Đăng kí thất bại';
+
+  @override
+  String get update => 'Cập nhật';
+
+  @override
+  String get updateSuccess => 'Cập nhật thành công';
+
+  @override
+  String get updateFailed => 'Cập nhật thất bại';
 }

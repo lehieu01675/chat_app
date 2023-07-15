@@ -4,6 +4,7 @@ import 'package:chatapp/src/data/models/user_model.dart';
 import 'package:chatapp/src/features/contact/view/contact_page.dart';
 import 'package:chatapp/src/features/dash_board/bloc/dashboard_bloc.dart';
 import 'package:chatapp/src/features/main_screen/page/main_page.dart';
+import 'package:chatapp/src/features/profile/page/profile_page.dart';
 import 'package:chatapp/src/router/route_paths.dart';
 import 'package:chatapp/src/theme/color_theme.dart';
 import 'package:chatapp/src/widgets/background_image.dart';
@@ -16,7 +17,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hive/hive.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:chatapp/src/widgets/basic_app_bar.dart';
-import 'package:chatapp/src/features/profile/view/profile_screen.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -86,12 +86,10 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  /// get current user
   void _getCurrentUser() {
     BlocProvider.of<DashboardBloc>(context).add(DashboardGetCurrentUser());
   }
 
-  /// update status of current user is on/off
   void _updateUserStatus({required bool status}) {
     BlocProvider.of<DashboardBloc>(context)
         .add(DashboardUpdateUserStatus(status: status));

@@ -39,16 +39,18 @@ class _MainPageState extends State<MainPage> {
             return Scaffold(
               body: (_listChatUser.isEmpty)
                   ? _buildFloatingButton()
-                  : Stack(children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        child: ListChatCardWidget(
-                          listChatUser: _listChatUser,
-                          currentUser: currentUser,
+                  : Stack(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          child: ListChatCardWidget(
+                            listChatUser: _listChatUser,
+                            currentUser: currentUser,
+                          ),
                         ),
-                      ),
-                      _buildFloatingButton(),
-                    ]),
+                        _buildFloatingButton(),
+                      ],
+                    ),
             );
           }
           return const SizedBox();

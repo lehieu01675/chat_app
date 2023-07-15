@@ -4,29 +4,26 @@ import 'package:chatapp/src/features/call/view/call_screen.dart';
 import 'package:chatapp/src/helper/color_helper.dart';
 import 'package:chatapp/src/helper/text_style_helper.dart';
 import 'package:chatapp/src/helper/transition_screen_helper.dart';
-import 'package:chatapp/src/lay_out/responsive_layout.dart';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../profile/view/profile_screen.dart';
-
-class BuildAppBarChatScreen extends StatefulWidget
+class AppBarChatPage extends StatefulWidget
     implements PreferredSizeWidget {
   final UserModel currentUser;
   final UserModel guestUser;
 
-  const BuildAppBarChatScreen(
+  const AppBarChatPage(
       {super.key, required this.currentUser, required this.guestUser});
 
   @override
-  State<StatefulWidget> createState() => _BuildAppBarChatScreenState();
+  State<StatefulWidget> createState() => _AppBarChatPageState();
 
   @override
   // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(60);
 }
 
-class _BuildAppBarChatScreenState extends State<BuildAppBarChatScreen> {
+class _AppBarChatPageState extends State<AppBarChatPage> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -67,13 +64,11 @@ class _BuildAppBarChatScreenState extends State<BuildAppBarChatScreen> {
       backgroundColor: Colors.transparent,
       leadingWidth: 50,
       title: InkWell(
-        onTap: () {
-          TransitionHelper.nextScreen(context, const ProfilePage());
-        },
+        onTap: () {},
         child: Row(children: [
           Container(
-            width: context.sizeWidth(45),
-            height: context.sizeWidth(45),
+            width: 45.w,
+            height: 45.w,
             decoration: const BoxDecoration(shape: BoxShape.circle),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(60),
@@ -81,12 +76,6 @@ class _BuildAppBarChatScreenState extends State<BuildAppBarChatScreen> {
                 fit: BoxFit.cover,
                 imageUrl: widget.guestUser.image,
                 errorWidget: (context, url, error) => const Text('data'),
-
-                //   CircleAvatar(
-                //   child: Image(
-                //     image: AssetImage(ImageHelper.cameraIcon),
-                //   ),
-                // ),
               ),
             ),
           ),

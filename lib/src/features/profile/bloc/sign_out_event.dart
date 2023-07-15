@@ -7,4 +7,4 @@ abstract class SignOutEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class SignOutAccountEvent extends SignOutEvent {}
+class SignOutAccount extends SignOutEvent {}
