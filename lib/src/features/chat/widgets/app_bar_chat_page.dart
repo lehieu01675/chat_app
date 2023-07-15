@@ -7,8 +7,7 @@ import 'package:chatapp/src/helper/transition_screen_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AppBarChatPage extends StatefulWidget
-    implements PreferredSizeWidget {
+class AppBarChatPage extends StatefulWidget implements PreferredSizeWidget {
   final UserModel currentUser;
   final UserModel guestUser;
 
@@ -20,7 +19,7 @@ class AppBarChatPage extends StatefulWidget
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => const Size.fromHeight(60);
+  Size get preferredSize => Size.fromHeight(100.h);
 }
 
 class _AppBarChatPageState extends State<AppBarChatPage> {
@@ -28,7 +27,7 @@ class _AppBarChatPageState extends State<AppBarChatPage> {
   Widget build(BuildContext context) {
     return AppBar(
       actionsIconTheme: const IconThemeData(color: Colors.black, size: 40),
-      toolbarHeight: 60,
+      toolbarHeight: 100.h,
       actions: [
         IconButton(
             onPressed: () async {

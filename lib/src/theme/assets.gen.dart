@@ -26,12 +26,28 @@ class $AssetsImagesGen {
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
+  /// File path: assets/lottie/camera.json
+  LottieGenImage get camera =>
+      const LottieGenImage('assets/lottie/camera.json');
+
+  /// File path: assets/lottie/gallery.json
+  LottieGenImage get gallery =>
+      const LottieGenImage('assets/lottie/gallery.json');
+
+  /// File path: assets/lottie/image_loading.json
+  LottieGenImage get imageLoading =>
+      const LottieGenImage('assets/lottie/image_loading.json');
+
   /// File path: assets/lottie/loading.json
   LottieGenImage get loading =>
       const LottieGenImage('assets/lottie/loading.json');
 
+  /// File path: assets/lottie/send.json
+  LottieGenImage get send => const LottieGenImage('assets/lottie/send.json');
+
   /// List of all assets
-  List<LottieGenImage> get values => [loading];
+  List<LottieGenImage> get values =>
+      [camera, gallery, imageLoading, loading, send];
 }
 
 class $AssetsSvgGen {

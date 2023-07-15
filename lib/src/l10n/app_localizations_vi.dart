@@ -111,4 +111,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get searchByIdOrName => 'Tìm kiếm qua ID hoặc tên';
+
+  @override
+  String get selectPhotoFrom => 'Chọn ảnh từ';
+
+  @override
+  String get gallery => 'Thư viện ảnh';
 }

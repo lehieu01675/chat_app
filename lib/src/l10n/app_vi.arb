@@ -36,5 +36,7 @@
     "update": "Cập nhật",
     "updateSuccess": "Cập nhật thành công",
     "updateFailed": "Cập nhật thất bại",
-    "searchByIdOrName": "Tìm kiếm qua ID hoặc tên"
+    "searchByIdOrName": "Tìm kiếm qua ID hoặc tên",
+    "selectPhotoFrom": "Chọn ảnh từ",
+    "gallery": "Thư viện ảnh"
 }
