@@ -69,20 +69,18 @@ class CustomChatCard extends StatelessWidget {
 
           isChatPage ? context.go(RoutePaths.chatPage) : () {};
         },
-        child: SizedBox(
-          child: ListTile(
-            subtitle: subTitle,
-            title: Text(
-              guestUser.name,
-              style: const TextStyle(fontSize: 20),
-              maxLines: 1,
-            ),
-            trailing: trailing,
-            leading: InkWell(
-                onTap: () => showDialog(
-                    context: context, builder: (_) => const ProfilePage()),
-                child: CustomAvatar(imageUrl: guestUser.image)),
+        child: ListTile(
+          subtitle: subTitle,
+          title: Text(
+            guestUser.name,
+            style: const TextStyle(fontSize: 20),
+            maxLines: 1,
           ),
+          trailing: trailing,
+          leading: InkWell(
+              onTap: () => showDialog(
+                  context: context, builder: (_) => const ProfilePage()),
+              child: CustomAvatar(imageUrl: guestUser.image)),
         ),
       ),
     );
