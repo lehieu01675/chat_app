@@ -4,7 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomArrowBackIcon extends StatelessWidget {
-  const CustomArrowBackIcon({super.key});
+  final void Function()? goBack;
+
+  const CustomArrowBackIcon({
+    super.key,
+    this.goBack,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +17,7 @@ class CustomArrowBackIcon extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         IconButton(
-          onPressed: () => context.pop(true),
+          onPressed: goBack ?? () => context.pop(true),
           icon: Icon(
             Icons.arrow_back_ios,
             color: ColorTheme.mineShaft,

@@ -18,10 +18,21 @@ class FontTheme {
     fontSize: 25.sp,
     fontWeight: FontWeight.w600,
   );
+  static TextStyle white15W400Poppins = GoogleFonts.roboto(
+    color: ColorTheme.white,
+    fontSize: 15.sp,
+    fontWeight: FontWeight.w400,
+  );
   static TextStyle mineShaft15W500Poppins = GoogleFonts.poppins(
     color: ColorTheme.mineShaft,
     fontSize: 15.sp,
     fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle ebony15W400Roboto = GoogleFonts.roboto(
+    color: ColorTheme.ebony,
+    fontSize: 15.sp,
+    fontWeight: FontWeight.w400,
   );
 
   static TextStyle mineShaft30W600Poppins = GoogleFonts.poppins(

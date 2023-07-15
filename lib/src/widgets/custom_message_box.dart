@@ -1,15 +1,14 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chatapp/src/theme/color_theme.dart';
+import 'package:chatapp/src/theme/font_theme.dart';
+import 'package:chatapp/src/utils/date_time_util.dart';
+import 'package:chatapp/src/widgets/custom_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:chatapp/src/features/chat/bloc/chat_bloc.dart';
-import 'package:chatapp/src/helper/color_helper.dart';
-import 'package:chatapp/src/helper/my_date_util.dart';
-import 'package:chatapp/src/helper/size_helper.dart';
-import 'package:chatapp/src/helper/text_style_helper.dart';
-import 'package:chatapp/src/lay_out/responsive_layout.dart';
 import 'package:chatapp/src/data/models/message_model.dart';
 
 class CustomMessageCard extends StatefulWidget {
@@ -24,8 +23,8 @@ class CustomMessageCard extends StatefulWidget {
 }
 
 class _CustomMessageCardState extends State<CustomMessageCard> {
-  final double borderRadiusCard = SizeHelper.borderRadisOfMessageCard;
   bool _showTime = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,17 +36,17 @@ class _CustomMessageCardState extends State<CustomMessageCard> {
         children: [
           _boxMessage(
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(borderRadiusCard),
-                topRight: Radius.circular(borderRadiusCard),
+                topLeft: Radius.circular(20.r),
+                topRight: Radius.circular(20.r),
                 bottomRight: widget.isCurrentUser
                     ? const Radius.circular(0)
-                    : Radius.circular(borderRadiusCard),
+                    : Radius.circular(20.r),
                 bottomLeft: widget.isCurrentUser
-                    ? Radius.circular(borderRadiusCard)
+                    ? Radius.circular(20.r)
                     : const Radius.circular(0)),
             color: widget.isCurrentUser
-                ? ColorHelper.currentMessage
-                : ColorHelper.guestMessage,
+                ? ColorTheme.curiousBlue
+                : ColorTheme.white,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: widget.isCurrentUser
@@ -59,40 +58,29 @@ class _CustomMessageCardState extends State<CustomMessageCard> {
                       ? const EdgeInsets.all(10)
                       : const EdgeInsets.all(0),
                   child: GestureDetector(
-                    onLongPress: () {
-                      _holdOnMessage(message: widget.messageModel);
-                    },
-                    onTap: () {
-                      widget.messageModel.type != Type.text
-                          ? _showSecondPage(context)
-                          : setState(() {
-                              _showTime = !_showTime;
-                            });
-                    },
-                    child: widget.messageModel.type == Type.text
-                        ? Text(
-                            widget.messageModel.msg,
-                            style: widget.isCurrentUser
-                                ? (context.smallDevice()
-                                    ? TextStyleHelper.currentMessageSmall
-                                    : TextStyleHelper.currentMessage)
-                                : (context.smallDevice()
-                                    ? TextStyleHelper.guestMessageSmall
-                                    : TextStyleHelper.guestMessage),
-                            textAlign: TextAlign.start,
-                          )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(5),
-                            child: CachedNetworkImage(
-                              fit: BoxFit.cover,
-                              width: context.sizeWidth(250),
-                              height: context.sizeHeight(250),
+                      onLongPress: () {
+                        _holdOnMessage(message: widget.messageModel);
+                      },
+                      onTap: () {
+                        widget.messageModel.type != Type.text
+                            ? _showSecondPage(context)
+                            : setState(() {
+                                _showTime = !_showTime;
+                              });
+                      },
+                      child: widget.messageModel.type == Type.text
+                          ? Text(
+                              widget.messageModel.msg,
+                              style: widget.isCurrentUser
+                                  ? FontTheme.white15W400Poppins
+                                  : FontTheme.ebony15W400Roboto,
+                              textAlign: TextAlign.start,
+                            )
+                          : CustomNetworkImage(
                               imageUrl: widget.messageModel.msg,
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.image, size: 70),
-                            ),
-                          ),
-                  ),
+                              width: 250.w,
+                              height: 250.h,
+                            )),
                 ),
               ],
             ),
@@ -106,12 +94,13 @@ class _CustomMessageCardState extends State<CustomMessageCard> {
                   child: Text(
                     textAlign: TextAlign.start,
                     (widget.messageModel.msg.length > 3)
-                        ? MyDateUtil.getFormattedTime(
+                        ? DateTimeUtil.getFormattedTime(
                             context: context, time: widget.messageModel.sent)
-                        : '  ${MyDateUtil.getFormattedTime(context: context, time: widget.messageModel.sent)}',
-                    style: TextStyle(
-                        fontSize: context.smallDevice() ? 15 : 12,
-                        color: Colors.black),
+                        : '  ${DateTimeUtil.getFormattedTime(context: context, time: widget.messageModel.sent)}',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.black,
+                    ),
                   ),
                 )
               : const SizedBox(
@@ -158,8 +147,7 @@ class _CustomMessageCardState extends State<CustomMessageCard> {
   }
 
   void _deleteMessage(MessageModel message) {
-    BlocProvider.of<ChatBloc>(context)
-        .add(ChatDeleteMessage(message: message));
+    BlocProvider.of<ChatBloc>(context).add(ChatDeleteMessage(message: message));
   }
 
   void _showSecondPage(BuildContext context) {
@@ -174,7 +162,7 @@ class _CustomMessageCardState extends State<CustomMessageCard> {
                   icon: const Icon(Icons.arrow_back_ios_new_rounded,
                       size: 30, color: Colors.white)),
               backgroundColor: Colors.black,
-              title: Text(MyDateUtil.getFormattedTime(
+              title: Text(DateTimeUtil.getFormattedTime(
                   context: context, time: widget.messageModel.sent))),
           body: PhotoView(
             imageProvider: NetworkImage(widget.messageModel.msg),

@@ -1,7 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chatapp/src/features/main_screen/bloc/main_page_bloc.dart';
-import 'package:chatapp/src/helper/color_helper.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
+import 'package:chatapp/src/theme/color_theme.dart';
 import 'package:chatapp/src/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +34,7 @@ class _FloatingButtonState extends State<FloatingButton> {
             child: GestureDetector(
               onPanUpdate: widget.onPanUpdate,
               child: FloatingActionButton(
-                backgroundColor: ColorHelper.lightMain,
+                backgroundColor: ColorTheme.curiousBlue,
                 onPressed: () {
                   _addChatUserDialog(context);
                 },

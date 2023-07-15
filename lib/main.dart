@@ -5,6 +5,7 @@ import 'package:chatapp/src/service/cache_server.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'src/features/my_app/page/my_app.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -26,6 +27,8 @@ Future<void> main() async {
 
   /// open box user-lc
   await Hive.openBox(TextConstant.currentUserPath);
+
+  await dotenv.load(fileName: ".env");
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setPreferredOrientations([

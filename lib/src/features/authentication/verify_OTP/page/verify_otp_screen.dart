@@ -1,5 +1,3 @@
-// ignore: unused_import
-import 'package:chatapp/src/data/repositories/phone_repo.dart';
 import 'package:chatapp/src/features/authentication/verify_OTP/bloc/verify_otp_bloc.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
 import 'package:chatapp/src/router/route_paths.dart';

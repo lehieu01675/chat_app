@@ -4,13 +4,15 @@ import 'package:chatapp/src/features/authentication/phong_number/page/phone_numb
 import 'package:chatapp/src/features/authentication/sign_in/page/sign_in_page.dart';
 import 'package:chatapp/src/features/authentication/sign_up/page/sign_up_page.dart';
 import 'package:chatapp/src/features/authentication/verify_OTP/page/verify_otp_screen.dart';
-import 'package:chatapp/src/features/chat/page/chat_screen.dart';
+import 'package:chatapp/src/features/call/view/call_screen.dart';
+import 'package:chatapp/src/features/chat/page/chat_page.dart';
 import 'package:chatapp/src/features/contact/page/contact_page.dart';
 import 'package:chatapp/src/features/dash_board/page/dash_board_page.dart';
 import 'package:chatapp/src/features/edit_profile/page/edit_profile_page.dart';
 import 'package:chatapp/src/features/main_screen/page/main_page.dart';
 import 'package:chatapp/src/features/profile/page/profile_page.dart';
-import 'package:chatapp/src/lay_out/auth_gate.dart';
+import 'package:chatapp/src/features/auth_gate.dart';
+import 'package:chatapp/src/utils/regex_util.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
@@ -59,27 +61,34 @@ class AppRouter {
             builder: (context, state) => const DashboardPage(),
             routes: [
               GoRoute(
-                  path: TextConstant.mainPagePath,
-                  builder: (context, state) => const MainPage(),
+                path: TextConstant.mainPagePath,
+                builder: (context, state) => const MainPage(),
+              ),
+              GoRoute(
+                  path: TextConstant.chatPath,
+                  builder: (context, state) => const ChatPage(),
                   routes: [
                     GoRoute(
-                      path: TextConstant.chatPath,
-                      builder: (context, state) => const ChatPage(),
-                    ),
+                        path: TextConstant.callPagePath,
+                        builder: (context, state) {
+                          final isVideoCall = RegexUtil.stringToBoolean(
+                            state.queryParameters["isVideoCall"] ?? "false",
+                          );
+                          return CallPage(isVideoCall: isVideoCall);
+                        }),
                   ]),
               GoRoute(
                 path: TextConstant.contactPagePath,
                 builder: (context, state) => const ContactPage(),
               ),
               GoRoute(
-                  path: TextConstant.profilePagePath,
-                  builder: (context, state) => const ProfilePage(),
-                  routes: [
-                    GoRoute(
-                      path: TextConstant.editProfilePage,
-                      builder: (context, state) => const EditProfilePage(),
-                    ),
-                  ])
+                path: TextConstant.profilePagePath,
+                builder: (context, state) => const ProfilePage(),
+              ),
+              GoRoute(
+                path: TextConstant.editProfilePage,
+                builder: (context, state) => const EditProfilePage(),
+              ),
             ],
           ),
         ],

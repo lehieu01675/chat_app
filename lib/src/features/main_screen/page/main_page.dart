@@ -39,7 +39,7 @@ class _MainPageState extends State<MainPage> {
             return Scaffold(
               body: Stack(
                 children: [
-                  if ((_listChatUser.isNotEmpty))
+                  if ((_listChatUser.isNotEmpty)) ...[
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.w),
                       child: ListChatCardWidget(
@@ -47,12 +47,13 @@ class _MainPageState extends State<MainPage> {
                         currentUser: currentUser,
                       ),
                     ),
+                  ],
                   _buildFloatingButton(),
                 ],
               ),
             );
           }
-          return const SizedBox();
+          return const Scaffold(body: SizedBox());
         },
       ),
     );

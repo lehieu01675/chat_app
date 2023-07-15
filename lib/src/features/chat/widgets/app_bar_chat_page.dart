@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp/src/data/models/user_model.dart';
-import 'package:chatapp/src/features/call/view/call_screen.dart';
-import 'package:chatapp/src/helper/color_helper.dart';
-import 'package:chatapp/src/helper/text_style_helper.dart';
-import 'package:chatapp/src/helper/transition_screen_helper.dart';
+import 'package:chatapp/src/router/route_paths.dart';
+import 'package:chatapp/src/theme/color_theme.dart';
+import 'package:chatapp/src/theme/font_theme.dart';
+import 'package:chatapp/src/widgets/custom_arrow_back.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class AppBarChatPage extends StatefulWidget implements PreferredSizeWidget {
   final UserModel currentUser;
@@ -31,34 +32,21 @@ class _AppBarChatPageState extends State<AppBarChatPage> {
       actions: [
         IconButton(
             onPressed: () async {
-              TransitionHelper.nextScreen(
-                  context,
-                  CallScreen(
-                      guestUser: widget.guestUser,
-                      currentUser: widget.currentUser,
-                      isVideoCall: false));
+              context.go("${RoutePaths.callPagePath}?isVideoCall=false");
             },
-            icon:
-                Icon(Icons.call, color: ColorHelper.currentMessage, size: 35)),
+            icon: Icon(Icons.call, color: ColorTheme.curiousBlue, size: 35)),
         IconButton(
             onPressed: () {
-              TransitionHelper.nextScreen(
-                  context,
-                  CallScreen(
-                      guestUser: widget.guestUser,
-                      currentUser: widget.currentUser,
-                      isVideoCall: true));
+              context.go("${RoutePaths.callPagePath}?isVideoCall=true");
             },
-            icon: Icon(Icons.video_call_rounded,
-                color: ColorHelper.currentMessage, size: 50)),
+            icon: Icon(
+              Icons.video_call_rounded,
+              color: ColorTheme.curiousBlue,
+              size: 50,
+            )),
         const SizedBox(width: 10)
       ],
-      leading: IconButton(
-          onPressed: () {
-            TransitionHelper.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios_new_rounded,
-              size: 30, color: Colors.black)),
+      leading: const CustomArrowBackIcon(),
       elevation: 0,
       backgroundColor: Colors.transparent,
       leadingWidth: 50,
@@ -85,20 +73,24 @@ class _AppBarChatPageState extends State<AppBarChatPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 // name guest user
-                Text(_getTheLastName(widget.guestUser.name),
-                    style: TextStyleHelper.nameOfUserMessagePage),
+                Text(
+                  _getTheLastName(widget.guestUser.name),
+                  style: FontTheme.mineShaft15W500RobotoMono,
+                ),
 
                 // online or offline status
                 widget.guestUser.isOnline
                     ? Text(
                         'online',
                         style: TextStyle(
-                            color: ColorHelper.onlineStatus, fontSize: 10),
+                          color: ColorTheme.curiousBlue,
+                          fontSize: 10,
+                        ),
                       )
                     : Text(
                         'offline',
                         style: TextStyle(
-                            color: ColorHelper.offlineStatus, fontSize: 10),
+                            color: ColorTheme.silverChalice, fontSize: 10),
                       ),
               ]),
         ]),

@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:chatapp/src/data/models/user_model.dart';
-import 'package:chatapp/src/helper/text_helper.dart';
 import 'package:chatapp/src/data/models/message_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 
@@ -147,11 +147,11 @@ class MessageProviderImpl implements MessageProvider {
         },
       };
 
+      final serviceKeyForNotification = dotenv.get("SERVICE_KEY_NOTIFICATION");
       await post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
           headers: {
             HttpHeaders.contentTypeHeader: 'application/json',
-            HttpHeaders.authorizationHeader:
-                'key=${TextHelper.serviceKeyForNotification}'
+            HttpHeaders.authorizationHeader: 'key=$serviceKeyForNotification'
           },
           body: jsonEncode(body));
     } catch (e) {

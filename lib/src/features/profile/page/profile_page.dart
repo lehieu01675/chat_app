@@ -7,6 +7,7 @@ import 'package:chatapp/src/features/profile/widgets/build_id_user.dart';
 import 'package:chatapp/src/features/profile/widgets/edit_icon.dart';
 import 'package:chatapp/src/features/profile/widgets/sign_out_icon.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
+import 'package:chatapp/src/router/route_paths.dart';
 import 'package:chatapp/src/theme/font_theme.dart';
 import 'package:chatapp/src/utils/dialog_util.dart';
 import 'package:chatapp/src/widgets/custom_arrow_back.dart';
@@ -14,6 +15,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -46,6 +48,9 @@ class _ProfilePageState extends State<ProfilePage> {
       create: (context) => SignOutBloc(),
       child: BlocConsumer<SignOutBloc, SignOutState>(
         listener: (context, state) {
+          if (state is SignOutSuccess) {
+            context.go(RoutePaths.signIn);
+          }
           if (state is SignOutError) {
             _showStateError(context, state);
           }

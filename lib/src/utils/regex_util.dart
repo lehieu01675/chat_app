@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 class RegexUtil {
+  static bool stringToBoolean(String input) {
+    return input.toLowerCase() == 'true';
+  }
+
   static bool emailValid({
     required BuildContext context,
     required String email,

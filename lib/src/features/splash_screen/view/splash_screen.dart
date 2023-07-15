@@ -1,5 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:chatapp/src/lay_out/auth_gate.dart';
+import 'package:chatapp/src/features/auth_gate.dart';
 import 'package:flutter/material.dart';
 
 // ignore: depend_on_referenced_packages

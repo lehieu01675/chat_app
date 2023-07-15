@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MyDateUtil {
+class DateTimeUtil {
   // for getting formatted time from milliSecondsSinceEpochs String
   static String getFormattedTime(
       {required BuildContext context, required String time}) {
