@@ -3,21 +3,19 @@ import 'package:chatapp/src/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-// ignore: unused_import
-import 'package:lottie/lottie.dart';
 import 'package:chatapp/src/widgets/custom_text_form_field.dart';
 import 'package:chatapp/src/features/chat/bloc/chat_bloc.dart';
 import 'package:chatapp/src/utils/dialog_util.dart';
 
-import 'package:chatapp/src/models/message_model.dart';
+import 'package:chatapp/src/data/models/message_model.dart';
 
-class BuildMessageInput extends StatefulWidget {
+class MessageInput extends StatefulWidget {
   final TextEditingController messageController;
   final UserModel currentUser;
   final UserModel guestUser;
   final List<MessageModel> listMessage;
 
-  const BuildMessageInput(
+  const MessageInput(
       {super.key,
       required this.messageController,
       required this.currentUser,
@@ -25,10 +23,10 @@ class BuildMessageInput extends StatefulWidget {
       required this.listMessage});
 
   @override
-  State<BuildMessageInput> createState() => _BuildMessageInputState();
+  State<MessageInput> createState() => _MessageInputState();
 }
 
-class _BuildMessageInputState extends State<BuildMessageInput> {
+class _MessageInputState extends State<MessageInput> {
   @override
   Widget build(BuildContext context) {
     return Row(

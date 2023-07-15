@@ -93,4 +93,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get delete => 'Delete';
+
+  @override
+  String get copiedId => 'Copied ID';
+
+  @override
+  String get signOutFailed => 'Sign out failed';
+
+  @override
+  String get update => 'Update';
+
+  @override
+  String get updateSuccess => 'Update success';
+
+  @override
+  String get updateFailed => 'Update failed';
 }

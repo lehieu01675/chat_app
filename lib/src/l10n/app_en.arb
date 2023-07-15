@@ -30,7 +30,10 @@
      "enterID": "Enter ID",
      "sentEmail": "Sent email",
      "changeLanguage": "Thay đổi ngôn ngữ",
-     "delete": "Delete"
-
-
+     "delete": "Delete",
+     "copiedId": "Copied ID",
+     "signOutFailed": "Sign out failed",
+     "update": "Update",
+     "updateSuccess": "Update success",
+     "updateFailed": "Update failed"
 }

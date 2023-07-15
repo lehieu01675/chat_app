@@ -10,7 +10,7 @@ import 'package:chatapp/src/helper/my_date_util.dart';
 import 'package:chatapp/src/helper/size_helper.dart';
 import 'package:chatapp/src/helper/text_style_helper.dart';
 import 'package:chatapp/src/lay_out/responsive_layout.dart';
-import 'package:chatapp/src/models/message_model.dart';
+import 'package:chatapp/src/data/models/message_model.dart';
 
 class CustomMessageCard extends StatefulWidget {
   final MessageModel messageModel;

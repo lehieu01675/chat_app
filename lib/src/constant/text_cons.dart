@@ -16,7 +16,9 @@ class TextConstant {
   static const String dashboardPath = "dashboard";
   static const String forgotPasswordPath = "forgot_password";
   static const String phoneNumberPath = "phone_number";
+  static const String editProfilePage = "edit_profile_page";
   static const String verifyOtpPath = "verify_OTP";
+  static const String chatPath = "chat_page";
   static const String verificationID = "verificationId";
   static const String currentUser = "currentUser";
   static const String phoneNumber = "phoneNumber";

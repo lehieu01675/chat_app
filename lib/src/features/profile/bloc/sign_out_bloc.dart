@@ -1,24 +1,27 @@
+import 'package:chatapp/src/data/repositories/sign_out_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
-import '../repositories/profile_repo.dart';
 part 'sign_out_event.dart';
+
 part 'sign_out_state.dart';
 
 class SignOutBloc extends Bloc<SignOutEvent, SignOutState> {
-  SignOutRepository signOutRepository;
-  SignOutBloc({required this.signOutRepository}) : super(UnSignedOut()) {
-    on<SignOutAccountEvent>(_signOut);
+  SignOutRepository signOutRepository = GetIt.I.get<SignOutRepository>();
+
+  SignOutBloc() : super(SignOutFailed()) {
+    on<SignOutAccount>(_signOut);
   }
-  // sign out
+
   Future<void> _signOut(
-      SignOutAccountEvent event, Emitter<SignOutState> emit) async {
+      SignOutAccount event, Emitter<SignOutState> emit) async {
     try {
       await signOutRepository.signOut();
-      emit(SignedOut());
+      emit(SignOutSuccess());
     } catch (e) {
-      emit(SignOutError(error: e.toString()));
-      emit(UnSignedOut());
+      emit(SignOutError(message: e.toString()));
+      emit(SignOutFailed());
     }
   }
 }

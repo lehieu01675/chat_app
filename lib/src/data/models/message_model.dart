@@ -1,6 +1,22 @@
-enum Type { text, image}
+import 'package:hive/hive.dart';
+part 'message_model.g.dart';
+enum Type { text, image }
 
+@HiveType(typeId: 2)
 class MessageModel {
+  @HiveField(0)
+  final String toId;
+  @HiveField(1)
+  final String msg;
+  @HiveField(2)
+  final String read;
+  @HiveField(3)
+  final String fromId;
+  @HiveField(4)
+  final String sent;
+  @HiveField(5)
+  final Type type;
+
   MessageModel({
     required this.toId,
     required this.msg,
@@ -10,17 +26,10 @@ class MessageModel {
     required this.sent,
   });
 
-  final String toId;
-  final String msg;
-  final String read;
-  final String fromId;
-  final String sent;
-  final Type type;
-
   factory MessageModel.fromJson(Map<String, dynamic> json) {
     final toId = json['toId'] ?? '';
-    final msg = json['msg']?? '';
-    final read = json['read']?? '';
+    final msg = json['msg'] ?? '';
+    final read = json['read'] ?? '';
     final type =
         json['type'].toString() == Type.image.name ? Type.image : Type.text;
     final fromId = json['fromId'];

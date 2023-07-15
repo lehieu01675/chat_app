@@ -30,6 +30,10 @@
    "enterID": "Nhập ID",
     "sentEmail": "Đã gửi email",
     "changeLanguage": "Change language",
-    "delete": "Xóa"
-
+    "delete": "Xóa",
+    "copiedId": "Đã sao chép ID",
+    "signOutFailed": "Đăng kí thất bại",
+    "update": "Cập nhật",
+    "updateSuccess": "Cập nhật thành công",
+    "updateFailed": "Cập nhật thất bại"
 }

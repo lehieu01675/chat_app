@@ -1,7 +1,6 @@
 import 'package:chatapp/src/constant/text_cons.dart';
 import 'package:chatapp/src/features/dash_board/bloc/dashboard_bloc.dart';
-import 'package:chatapp/src/features/edit_profile/bloc/editing_profile_bloc.dart';
-import 'package:chatapp/src/features/edit_profile/repositories/edit_profile_repo.dart';
+import 'package:chatapp/src/features/edit_profile/bloc/edit_profile_bloc.dart';
 import 'package:chatapp/src/features/my_app/bloc/my_app_bloc.dart';
 import 'package:chatapp/src/l10n/app_localizations.dart';
 import 'package:chatapp/src/router/app_router.dart';
@@ -28,9 +27,7 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: ((context) => DashboardBloc())),
-        BlocProvider(
-            create: ((context) => EditingProfileBloc(
-                editingProfileRepository: EditingProfileRepository()))),
+        BlocProvider(create: ((context) => EditProfileBloc())),
         BlocProvider(create: ((context) => MyAppBloc())),
       ],
       child: ScreenUtilInit(

@@ -8,13 +8,13 @@ abstract class SignOutState extends Equatable {
 }
 
 class SignOutError extends SignOutState {
-  final String error;
+  final String message;
 
-  const SignOutError({required this.error});
+  const SignOutError({required this.message});
   @override
-  List<Object> get props => [error];
+  List<Object> get props => [message];
 }
 
-class SignedOut extends SignOutState {}
+class SignOutSuccess extends SignOutState {}
 
-class UnSignedOut extends SignOutState {}
+class SignOutFailed extends SignOutState {}
